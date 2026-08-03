@@ -24,6 +24,11 @@ This directory is a local mirror of the ChatGPT project “SAB-BIO”.
   on React state or React event handlers.
 - `npm run build` exports the static preview and regenerates the WordPress-ready
   header and footer fragments in `handoff/fragments/`.
+- `components/PreviewScripts.tsx` is the one client component, and it holds no
+  behaviour: it loads the same files from `public/scripts/` when it finds the
+  layout's own `<script>` tags were never executed, which is the case on hosts
+  that mount the component tree on the client (v0). In a browser those tags
+  have already run and it does nothing. Keep behaviour out of it.
 - Do not hand-maintain duplicate React and HTML implementations. Generated
   fragments must come from the rendered shared components, and contract tests
   must fail if this architecture changes.

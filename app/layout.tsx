@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PreviewScripts } from "../components/PreviewScripts";
 import "./styles/foundation/tokens.css";
 import "./styles/foundation/base.css";
 import "./styles/blocks/actions.css";
@@ -64,6 +65,8 @@ export default function RootLayout({
         <script type="module" src="/scripts/microcapsule-hero.js" />
         <script src="/scripts/scroll-reveal.js" defer />
         <script src="/scripts/media-banner.js" defer />
+        {/* Loads the same files on hosts that do not execute the tags above. */}
+        <PreviewScripts />
       </body>
     </html>
   );

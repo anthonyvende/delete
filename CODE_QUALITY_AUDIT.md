@@ -109,6 +109,8 @@ Audit date: 2026-07-31
 - ✅ `app/styles/blocks/actions.css` — shared actions and arrow states.
 - ✅ `app/styles/blocks/article-grid.css` — shared article cards/grid.
 - ✅ `app/styles/blocks/cards.css` — shared card families.
+- ✅ `components/PreviewScripts.tsx` — preview-only script bootstrapper; no
+  behaviour, renders nothing, excluded from the handoff.
 - ✅ `app/styles/blocks/benefit-collection.css` — image-beside-list benefit
   block; moved out of the shared layout sheet so the block owns its rules.
 - ✅ `app/styles/blocks/legal-document.css` — long-form policy pages; moved

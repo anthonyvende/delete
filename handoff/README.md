@@ -25,6 +25,10 @@ Copy their component-owned styles from:
 - `app/styles/blocks/actions.css`
 - `app/styles/foundation/`
 
+`components/PreviewScripts.tsx` exists only so the Next preview works on hosts
+that do not execute script tags. It renders nothing and is not part of the
+handoff — WordPress enqueues the files in `public/scripts/` directly.
+
 The mobile navigation behavior is framework-free and lives at
 `public/scripts/site-header.js`. Load it with `defer` after the header markup.
 Do not recreate the menu with React or WordPress-specific state.
