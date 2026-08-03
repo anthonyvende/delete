@@ -56,14 +56,10 @@ The homepage hero animation is a separate, optional block:
   `<script type="module">` (not `defer`). It is safe to load site-wide: the
   script is ~34KB and pulls in Three.js and the portrait cloud (~3MB) only
   after it finds a `[data-microcapsule]` canvas, so other routes pay nothing.
-- Library: `public/vendor/three.module.js` + `three.core.js`, resolved by the
-  import map in the document `<head>`:
-
-  ```html
-  <script type="importmap">
-    { "imports": { "three": "/vendor/three.module.js" } }
-  </script>
-  ```
+- Library: `public/vendor/three.module.js` + `three.core.js`. The hero imports
+  the build by path, so no import map is needed — copy the two files across and
+  nothing else. `three.module.js` resolves `./three.core.js` relatively, so keep
+  them side by side.
 
 The script sizes itself to the canvas element, runs only while the hero is on
 screen, and removes the canvas entirely when the visitor prefers reduced motion

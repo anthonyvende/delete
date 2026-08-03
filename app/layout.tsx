@@ -40,24 +40,6 @@ export default function RootLayout({
     // which is what keeps the hidden state from applying when the script is
     // missing. React owns nothing here, so the mismatch is expected.
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Resolves the vendored Three.js build for the hero animation block.
-            Deliberately a plain <script>, not next/script: the exported HTML has
-            to carry real script tags a WordPress theme can copy. next/script
-            replaces them with Next's own runtime loader, which does not exist
-            outside this preview. */}
-        <script
-          type="importmap"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              imports: {
-                three: "/vendor/three.module.js",
-                "three/webgpu": "/vendor/three.module.js",
-              },
-            }),
-          }}
-        />
-      </head>
       <body>
         {children}
         <script src="/scripts/site-header.js" defer />

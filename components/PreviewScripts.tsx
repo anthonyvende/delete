@@ -17,13 +17,6 @@ import { useEffect } from "react";
  * reaches the handoff.
  */
 
-const IMPORT_MAP = {
-  imports: {
-    three: "/vendor/three.module.js",
-    "three/webgpu": "/vendor/three.module.js",
-  },
-};
-
 const SCRIPTS: { src: string; module?: boolean }[] = [
   { src: "/scripts/site-header.js" },
   { src: "/scripts/people-directory.js" },
@@ -38,14 +31,6 @@ export function PreviewScripts() {
       ({ src }) => !document.querySelector(`script[src="${src}"]`),
     );
     if (!missing.length) return;
-
-    // An import map has to be in place before the first module is fetched.
-    if (!document.querySelector('script[type="importmap"]')) {
-      const map = document.createElement("script");
-      map.type = "importmap";
-      map.textContent = JSON.stringify(IMPORT_MAP);
-      document.head.appendChild(map);
-    }
 
     for (const { src, module } of missing) {
       const element = document.createElement("script");

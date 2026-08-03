@@ -38,8 +38,12 @@ async function boot(canvas) {
     return;
   }
 
+  // The vendored build is imported by path, not as the bare specifier "three":
+  // a bare specifier needs an import map, and a host that does not execute the
+  // page's script tags never registers one. three.module.js resolves its own
+  // "./three.core.js" relatively, so nothing else is needed.
   const [THREE, { default: PORTRAIT_DATA }] = await Promise.all([
-    import("three"),
+    import("/vendor/three.module.js"),
     import("./portrait-data.js"),
   ]);
 
