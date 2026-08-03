@@ -1,6 +1,12 @@
 /*  Brand tokens and font loading  */@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=Manrope:wght@400;600;700&display=swap");
 
-:root {
+/* `html:root` rather than `:root`, deliberately.
+   Three of these names — --accent, --border, --muted — are also shadcn and
+   Tailwind defaults. A host that ships its own globals.css (v0 does) defines
+   them on `:root` and, loading after this file, would overwrite the brand
+   colours with its own greys. The extra element in the selector outranks a
+   plain `:root` whatever the load order, so the brand always wins. */
+html:root {
   /* Core palette */
   --bg: #f3f4f6;
   --surface: #fff;

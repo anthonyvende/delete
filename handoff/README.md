@@ -18,6 +18,11 @@ The copy inside a block fragment is placeholder — it is taken from the first
 real page that uses the block. The markup, class names, and `data-*` hooks are
 the contract; the text is whatever WordPress will supply.
 
+The palette is declared on `html:root` rather than `:root` on purpose:
+`--accent`, `--border`, and `--muted` collide with shadcn and Tailwind
+defaults, and a theme stylesheet loading afterwards would otherwise overwrite
+the brand colours. Keep that selector when porting.
+
 Copy their component-owned styles from:
 
 - `app/styles/blocks/header.css`

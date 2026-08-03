@@ -10,6 +10,14 @@ This directory is a local mirror of the ChatGPT project “SAB-BIO”.
 
 ## Portable WordPress handoff architecture
 
+### Tokens
+
+- `app/styles/foundation/tokens.css` declares the palette on `html:root`, not
+  `:root`. `--accent`, `--border`, and `--muted` are also shadcn and Tailwind
+  defaults, so a host shipping its own `globals.css` after this file would
+  otherwise repaint the brand with its greys. Keep the extra element in that
+  selector, and prefer a distinctive name for any new token.
+
 - Next.js is only the visual preview renderer. It must not own behavior that the
   WordPress implementation cannot reuse directly.
 - Render semantic, copyable HTML. Route files provide content; shared blocks
