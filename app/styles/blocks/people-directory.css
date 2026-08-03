@@ -1,0 +1,249 @@
+/* Reusable people directory */
+
+.people-directory__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  border-bottom: var(--stroke-strong) solid var(--accent);
+}
+
+.people-directory__tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 0;
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  background: var(--surface);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--font-size-card-title);
+  text-align: center;
+  cursor: pointer;
+}
+
+/* The chevron marks the group currently in view. */
+.people-directory__tab-chevron {
+  display: none;
+  width: var(--control-icon-size);
+  aspect-ratio: var(--ratio-square);
+}
+
+.people-directory__tab[aria-selected="true"] {
+  background: var(--soft-blue);
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.people-directory__tab[aria-selected="true"] .people-directory__tab-chevron {
+  display: block;
+}
+
+.people-directory__panel[hidden] {
+  display: none;
+}
+
+/* People deal in card by card. */
+[data-reveal].people-directory__group {
+  transform: none;
+}
+
+[data-reveal="shown"] .person-card-shell {
+  transition:
+    opacity var(--motion-deliberate),
+    transform var(--motion-deliberate);
+}
+
+[data-reveal="pending"] .person-card-shell {
+  opacity: 0;
+  transform: var(--transform-reveal-hidden);
+}
+
+.person-card-shell:nth-child(2) {
+  transition-delay: var(--duration-quick);
+}
+
+.person-card-shell:nth-child(3) {
+  transition-delay: var(--duration-standard);
+}
+
+.person-card-shell:nth-child(n + 4) {
+  transition-delay: var(--duration-slow);
+}
+
+.people-directory__group {
+  padding-top: var(--space-7);
+}
+
+.people-directory__empty {
+  padding-top: var(--space-7);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Biography dialog */
+
+.person-modal {
+  width: min(var(--measure-content), calc(100% - var(--space-7)));
+  max-height: calc(100% - var(--space-7));
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: var(--radius-3xl);
+  background: var(--surface);
+  color: var(--fg);
+}
+
+.person-modal::backdrop {
+  background: var(--accent-70);
+}
+
+.person-modal__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+  gap: var(--space-6);
+  max-height: inherit;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.person-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: grid;
+  place-items: center;
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-circle);
+  background: transparent;
+  color: var(--accent);
+  font-size: var(--font-size-card-title);
+  line-height: var(--line-height-solid);
+  cursor: pointer;
+  transition: background var(--motion-fast);
+}
+
+.person-modal__close:is(:hover, :focus-visible) {
+  background: var(--soft-blue);
+}
+
+.person-modal__aside {
+  align-self: start;
+}
+
+.person-modal__photo {
+  width: 100%;
+  margin-bottom: var(--space-4);
+  object-fit: cover;
+  border-radius: var(--radius-2xl);
+}
+
+.person-modal__name {
+  color: var(--accent);
+  font-size: var(--font-size-card-title);
+}
+
+.person-modal__role {
+  color: var(--fg);
+  font-weight: var(--font-weight-bold);
+}
+
+.person-modal__bio {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  color: var(--copy);
+}
+
+@media (max-width: 50rem) {
+  .person-modal__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .person-modal__bio {
+    padding-top: 0;
+  }
+}
+
+.people-directory__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-6);
+}
+
+.people-directory__grid--balanced article:nth-child(4) {
+  grid-column: 1 / 2;
+  transform: translateX(50%);
+}
+
+.people-directory__grid--balanced article:nth-child(5) {
+  grid-column: 2 / 3;
+  transform: translateX(50%);
+}
+
+@media (max-width: 73.75rem) {
+  .people-directory__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .people-directory__grid--balanced article:nth-child(4),
+  .people-directory__grid--balanced article:nth-child(5) {
+    grid-column: auto;
+    transform: none;
+  }
+
+  .people-directory__grid--balanced article:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - var(--space-4));
+    justify-self: center;
+  }
+}
+
+@media (max-width: 50rem) {
+  .people-directory__grid {
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .people-directory__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .people-directory__tabs {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    border-bottom: 0;
+  }
+
+  .people-directory__tab {
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 0 0 var(--stroke-thin) var(--accent-11);
+    font-size: var(--font-size-body-compact);
+  }
+
+  .people-directory__group {
+    padding-top: var(--space-7);
+  }
+
+  .people-directory__grid--balanced article:last-child {
+    grid-column: auto;
+    width: auto;
+  }
+}
+
+/* The directory sits directly under a hero, so it carries the shared section
+   rhythm like any other block rather than being listed in a layout sheet. */
+.people-directory {
+  padding-block: var(--space-8);
+}
+
+@media (max-width: 43.75rem) {
+  main .people-directory {
+    padding-block: var(--space-6);
+  }
+}

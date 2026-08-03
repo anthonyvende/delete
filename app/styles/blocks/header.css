@@ -1,0 +1,460 @@
+/* Shared semantic header and framework-free mobile navigation. */
+
+html[data-menu-open="true"] {
+  overflow: hidden;
+}
+
+.site-header {
+  position: relative;
+  z-index: var(--layer-header);
+  width: 100%;
+  padding: var(--space-4);
+}
+
+.hero--immersive > .site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.header-inner {
+  display: flex;
+  width: min(var(--measure-header), 100%);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-shell);
+  background: var(--surface-97);
+}
+
+.brand {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.brand img {
+  display: block;
+  width: var(--brand-header);
+  height: auto;
+}
+
+.nav-shell {
+  margin-left: auto;
+}
+
+.menu-button {
+  display: none;
+  padding: var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-solid);
+  cursor: pointer;
+}
+
+/* Two bars that cross into an X while the sheet opens. */
+.menu-button__icon {
+  position: relative;
+  display: block;
+  width: var(--control-menu-icon);
+  aspect-ratio: var(--ratio-square);
+}
+
+.menu-button__icon::before,
+.menu-button__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-block-start: var(--stroke-strong) solid currentcolor;
+  border-radius: var(--radius-2xs);
+  transition: transform var(--motion-quick), top var(--motion-quick);
+}
+
+.menu-button__icon::before {
+  top: 30%;
+}
+
+.menu-button__icon::after {
+  top: 70%;
+}
+
+.menu-button[aria-expanded="true"] .menu-button__icon::before {
+  top: 50%;
+  transform: var(--transform-menu-open-start);
+}
+
+.menu-button[aria-expanded="true"] .menu-button__icon::after {
+  top: 50%;
+  transform: var(--transform-menu-open-end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-button__icon::before,
+  .menu-button__icon::after {
+    transition: none;
+  }
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-5);
+}
+
+.site-nav > a:not(.nav-cta) {
+  position: relative;
+  padding: var(--space-3) 0;
+  color: var(--accent);
+  font-size: var(--font-size-body-wide);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+}
+
+/* Marks the links that own a submenu, and turns to point up while it is open. */
+.site-nav__chevron {
+  display: inline-grid;
+  place-items: center;
+  color: var(--accent);
+  transition: transform var(--motion-quick);
+}
+
+.site-nav__chevron .chevron-icon {
+  width: var(--control-icon-size);
+  aspect-ratio: var(--ratio-square);
+}
+
+.site-nav__item:is(:hover, :focus-within) .site-nav__chevron {
+  transform: var(--transform-chevron-open);
+}
+
+.site-nav > a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--space-2) * 0.7);
+  left: 0;
+  border-block-end: var(--stroke-medium) solid var(--teal);
+  border-radius: var(--radius-2xs);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-quick);
+}
+
+.site-nav > a:not(.nav-cta):is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.site-nav > .nav-cta {
+  justify-self: stretch;
+}
+
+/* Nav item that owns a submenu. Mirrors the top-level link styling because the
+   link is nested one level deeper than `.site-nav > a`. */
+.site-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.site-nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  color: var(--accent);
+  font-size: var(--font-size-body-wide);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+}
+
+.site-nav__item > .site-nav__link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--space-2) * 0.7);
+  left: 0;
+  border-block-end: var(--stroke-medium) solid var(--teal);
+  border-radius: var(--radius-2xs);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-quick);
+}
+
+.site-nav__item:is(:hover, :focus-within) > .site-nav__link::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.site-nav__submenu {
+  position: absolute;
+  top: 100%;
+  left: calc(var(--space-4) * -1);
+  display: grid;
+  min-width: var(--measure-submenu);
+  padding: var(--space-3);
+  border-radius: var(--radius-2xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-menu);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: var(--transform-menu-hidden);
+  transition: opacity var(--motion-quick), transform var(--motion-quick);
+}
+
+.site-nav__item:is(:hover, :focus-within) .site-nav__submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.site-nav__sublink {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: var(--font-size-body-compact);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+  transition: background var(--motion-fast);
+}
+
+.site-nav__sublink:is(:hover, :focus-visible) {
+  background: var(--soft-blue);
+}
+
+@media (max-width: 73.75rem) {
+  .header-inner {
+    position: relative;
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .brand img {
+    width: var(--brand-header-compact);
+  }
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .site-nav {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    display: grid;
+    width: min(var(--measure-menu), calc(100% - var(--space-7)));
+    justify-content: stretch;
+    justify-items: stretch;
+    gap: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-2xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-menu);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: var(--transform-menu-hidden);
+    transition: opacity var(--motion-quick), transform var(--motion-quick);
+  }
+
+  .site-nav[data-open="true"] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .site-nav > a:not(.nav-cta),
+  .site-nav__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-2);
+    border-radius: var(--radius-sm);
+    border-bottom: var(--stroke-thin) solid var(--fg-10);
+    font-size: var(--font-size-body-compact);
+  }
+
+  /* A submenu belongs to the link above it, so that link drops its rule. */
+  .site-nav__item > .site-nav__link {
+    border-bottom: 0;
+  }
+
+  .site-nav > a:not(.nav-cta):is(:hover, :focus-visible) {
+    background: var(--soft-blue);
+  }
+
+  .site-nav > a:not(.nav-cta)::after {
+    display: none;
+  }
+
+  .site-nav__label {
+    flex: 1 1 auto;
+  }
+
+  /* The submenu is already expanded in the panel, so the chevron would only
+     point at a state the reader can see. */
+  .site-nav__chevron {
+    display: none;
+  }
+
+  /* In the panel the group dissolves so its link and submenu stack as rows. */
+  .site-nav__item {
+    display: contents;
+  }
+
+  .site-nav__link:is(:hover, :focus-visible) {
+    background: var(--soft-blue);
+  }
+
+  .site-nav__item > .site-nav__link::after {
+    display: none;
+  }
+
+  .site-nav__submenu {
+    position: static;
+    min-width: 0;
+    padding: 0 0 var(--space-3) var(--space-4);
+    border-radius: 0;
+    border-bottom: var(--stroke-thin) solid var(--fg-10);
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    /* Follow the panel rather than forcing these on. Hard-coding them left the
+       submenu links hit-testable over the page while the menu was closed: the
+       panel's opacity hides them, but opacity alone does not block clicks. */
+    visibility: inherit;
+    pointer-events: inherit;
+    transform: none;
+  }
+
+  .site-nav__sublink {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-body-compact);
+    font-weight: var(--font-weight-regular);
+  }
+
+  /* The CTA closes the panel, so the last link carries the air above it. */
+  .site-nav > a:not(.nav-cta):nth-last-of-type(2) {
+    margin-bottom: var(--space-4);
+    border-bottom: 0;
+  }
+
+  .site-nav > .nav-cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .site-header,
+  .hero--immersive > .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0;
+  }
+
+  /* Sits above the full-viewport sheet so the brand and Close stay visible. */
+  .header-inner {
+    position: relative;
+    z-index: var(--layer-raised);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 0;
+    background: var(--surface);
+    box-shadow: 0 var(--stroke-thin) 0 var(--fg-10);
+  }
+
+  .brand img {
+    width: var(--brand-header-mobile);
+  }
+
+  .menu-button {
+    font-size: var(--font-size-body-compact);
+  }
+
+  /* The offset is a step shorter than the header so the sheet tucks behind the
+     opaque bar instead of leaving a strip of the page showing through. */
+  .site-nav {
+    position: fixed;
+    top: var(--header-mobile-offset);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    align-content: start;
+    gap: 0;
+    padding: var(--space-4) var(--space-5)
+      max(var(--space-4), env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-radius: 0;
+    box-shadow: none;
+    transform: var(--transform-menu-mobile-hidden);
+  }
+
+  .site-nav[data-open="true"] {
+    transform: translateY(0);
+  }
+
+  /* A typographic nav sheet: rows separated by hairlines, not stacked
+     buttons. Only Contact keeps a filled control. */
+  .site-nav > a:not(.nav-cta),
+  .site-nav__link {
+    padding: var(--space-4) 0;
+    border-bottom: var(--stroke-thin) solid var(--fg-10);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    font-size: var(--font-size-card-title);
+  }
+
+  .site-nav > a:not(.nav-cta):is(:hover, :focus-visible),
+  .site-nav__link:is(:hover, :focus-visible) {
+    background: transparent;
+    color: var(--teal);
+  }
+
+  .site-nav__submenu {
+    display: grid;
+    padding: var(--space-2) 0 var(--space-3);
+    border-bottom: var(--stroke-thin) solid var(--fg-10);
+  }
+
+  .site-nav__sublink {
+    padding: var(--space-3) 0;
+    border-radius: 0;
+    color: var(--muted);
+    font-size: var(--font-size-action);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .site-nav__sublink:is(:hover, :focus-visible) {
+    background: transparent;
+    color: var(--teal);
+  }
+
+  /* Trailing space before the CTA lives on the last row, since the shared
+     action owns its own sizing. */
+  .site-nav > a:not(.nav-cta):nth-last-of-type(2) {
+    border-bottom: 0;
+    padding-bottom: var(--space-5);
+  }
+
+  .site-nav > .nav-cta {
+    justify-content: center;
+  }
+}

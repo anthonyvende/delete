@@ -1,0 +1,150 @@
+/* Reusable form fields and contact composition */
+
+.contact-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.contact-section__intro,
+.contact-section__details,
+.contact-form,
+.contact-form__heading,
+.contact-form__fields,
+.form-field {
+  display: grid;
+}
+
+.contact-section__intro {
+  gap: var(--space-4);
+}
+
+.contact-section__details {
+  gap: var(--space-3);
+  font-style: normal;
+}
+
+.contact-section__details a {
+  color: var(--accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-form {
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--radius-media);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-form__heading {
+  gap: var(--space-3);
+}
+
+.contact-form__fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.form-field {
+  position: relative;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+/* Floating label: rests on the control's text line, rises into the border
+   when the field is focused or filled. */
+.form-field__label {
+  position: absolute;
+  z-index: var(--layer-content);
+  top: 0;
+  left: var(--space-3);
+  padding-inline: var(--space-2);
+  background: var(--surface);
+  color: var(--muted-secondary);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-solid);
+  pointer-events: none;
+  transform: translateY(var(--form-label-rest));
+  transform-origin: left center;
+  transition:
+    transform var(--motion-fast),
+    color var(--motion-fast);
+}
+
+.form-field--textarea .form-field__label {
+  transform: translateY(var(--form-label-rest-block));
+}
+
+.form-field:focus-within .form-field__label,
+.form-field:has(.form-control:not(:placeholder-shown)) .form-field__label,
+.form-field--select .form-field__label {
+  color: var(--accent);
+  transform: var(--form-label-float);
+}
+
+.form-control {
+  width: 100%;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border: var(--stroke-thin) solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-fast);
+}
+
+/* The placeholder only reads once the label has moved out of its way. */
+.form-control::placeholder {
+  color: var(--muted-secondary);
+  opacity: 0;
+  transition: opacity var(--motion-fast);
+}
+
+.form-field:focus-within .form-control::placeholder {
+  opacity: 1;
+}
+
+.form-control:focus-visible {
+  border-color: var(--accent);
+  outline: var(--stroke-medium) solid var(--accent-20);
+  outline-offset: var(--outline-offset);
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.form-field__help {
+  color: var(--muted-secondary);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-card);
+}
+
+.contact-form__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 43.75rem) {
+  .contact-section,
+  .contact-form__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    padding: var(--space-5);
+  }
+
+  .form-field--full {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+.playwright-cli/
+.playwright-mcp/
+tsconfig.tsbuildinfo
+.DS_Store
+.claude/

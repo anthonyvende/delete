@@ -1,0 +1,49 @@
+/*  Benefit collection — image beside a list of numbered benefit cards.  */
+
+.benefit-collection__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: var(--space-7);
+  align-items: stretch;
+}
+
+.benefit-collection__grid > img {
+  width: 100%;
+  border-radius: var(--radius-4xl);
+  object-fit: cover;
+}
+
+.benefit-collection__list {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.benefit-collection__list .icon-text-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.18fr) minmax(0, 1fr);
+  align-items: center;
+  padding: var(--space-4);
+}
+
+.benefit-collection__list .icon-text-card__icon {
+  display: grid;
+  width: var(--control-size-md);
+  place-items: center;
+  border: var(--stroke-strong) solid var(--teal);
+  border-radius: var(--radius-circle);
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+  aspect-ratio: var(--ratio-square);
+}
+
+@media (max-width: 73.75rem) {
+  .benefit-collection__grid {
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 50rem) {
+  .benefit-collection__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,676 @@
+/* SAB Bio homepage — measured from Figma frame 1144:3 (1920 × 6847). */
+.site-shell--landing {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.landing-canvas {
+  background: var(--bg);
+}
+
+  /* Immersive homepage hero. It fills the viewport, and the copy reads against
+     a soft scrim drawn down the left edge rather than a hard band. */
+  .hero--immersive {
+    position: relative;
+    display: grid;
+    min-height: var(--measure-hero-fill);
+    padding: 0;
+    overflow: hidden;
+    background: var(--soft-blue);
+  }
+
+  .hero--immersive > * {
+    grid-area: 1 / 1;
+  }
+
+
+  .hero--immersive > .site-header {
+    align-self: start;
+  }
+
+  .hero__media,
+  .hero__media > img,
+  .hero__canvas,
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__media > img,
+  .hero__video {
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* The renderer paints at the element's own size, so it only needs a box.
+     It sits over the video, which stays as the fallback when the animation
+     cannot run and the script removes the canvas. */
+  .hero__canvas {
+    position: absolute;
+    z-index: var(--layer-content);
+    display: block;
+    max-width: none;
+    /* Matches the renderer's own clear colour, so the first painted frame does
+       not flash a different ground. */
+    background: var(--soft-blue);
+  }
+
+  /* The still image is the fallback layer, so it sits below the canvas. */
+  .hero__media > img,
+  .hero__video {
+    z-index: var(--layer-base);
+  }
+
+  /* Navigation panel: x34 y36, 1852 × 145. */
+
+  /* The hero grows with its copy; the bottom pad keeps the intro off the edge. */
+  .hero__content {
+    position: relative;
+    z-index: var(--layer-raised);
+    align-self: end;
+    isolation: isolate;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-7);
+  }
+
+  /* The scrim covers the copy band only, bleeding to the viewport edges, and
+     fades the hero's own ground colour out to the right. */
+  .hero__content::before {
+    content: "";
+    position: absolute;
+    z-index: var(--layer-behind);
+    inset-block: 0;
+    inset-inline: var(--bleed-inline);
+    background: linear-gradient(
+      to right,
+      var(--hero-scrim) 0%,
+      var(--hero-scrim) 24%,
+      var(--hero-scrim-soft) 50%,
+      transparent 78%
+    );
+    /* Fades the band's own top edge, so it meets the animation without a line. */
+    mask-image: linear-gradient(to bottom, transparent 0%, var(--mask-opaque) 34%);
+    pointer-events: none;
+  }
+
+  /* Wide enough that the headline's own line breaks decide where it wraps. */
+  .hero__copy {
+    display: grid;
+    width: min(var(--measure-hero-copy), 100%);
+    gap: var(--space-5);
+  }
+
+  .hero__title {
+    color: var(--copy);
+  }
+
+  .hero__title span {
+    display: block;
+    color: var(--teal-bright);
+  }
+
+  .hero__intro {
+    width: min(var(--measure-hero-intro), 100%);
+    color: var(--copy);
+  }
+
+  /* Shared section geometry. */
+  .landing-section-stack {
+    padding-block: 0;
+  }
+
+  /* Copy centres against the media rather than being pushed down by a
+     per-layout padding. */
+  .image-text-band {
+    position: relative;
+    display: grid;
+    align-items: center;
+    padding: 0;
+  }
+
+  .image-text-band__copy {
+    display: grid;
+    max-width: none;
+    align-content: center;
+    gap: var(--space-5);
+  }
+
+  .image-text-band__heading {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .image-text-band__body {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .image-text-band__media {
+    position: relative;
+    height: 100%;
+    overflow: visible;
+    border-radius: 0;
+  }
+
+  .image-text-band__media > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    border-radius: var(--radius-media);
+  }
+
+  /* The cutout is drawn by the action itself, so the notch tracks the
+     intrinsic size of whatever CTA is slotted into it. */
+  .media-cutout {
+    --media-cutout-radius: var(--radius-media);
+    --media-cutout-surface: var(--bg);
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+  }
+
+  .media-cutout__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-media);
+    -webkit-mask: linear-gradient(var(--fg) 0 0);
+    mask: linear-gradient(var(--fg) 0 0);
+  }
+
+  .media-cutout__action {
+    justify-content: flex-end;
+  }
+
+  .cutout-action {
+    position: absolute;
+    z-index: var(--layer-raised);
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: var(--space-4);
+    padding-right: 0;
+    border-radius: var(--media-cutout-radius) 0 0 0;
+    background: var(--media-cutout-surface);
+  }
+
+  /* Concave fillets where the notch meets the media edges. */
+  .cutout-action::before,
+  .cutout-action::after {
+    content: "";
+    position: absolute;
+    width: var(--media-cutout-radius);
+    aspect-ratio: var(--ratio-square);
+    background: radial-gradient(
+      circle at 0 0,
+      transparent calc(var(--media-cutout-radius) - var(--stroke-thin)),
+      var(--media-cutout-surface) var(--media-cutout-radius)
+    );
+    pointer-events: none;
+  }
+
+  .cutout-action::before {
+    top: calc(var(--media-cutout-radius) * -1);
+    right: 0;
+  }
+
+  .cutout-action::after {
+    bottom: 0;
+    left: calc(var(--media-cutout-radius) * -1);
+  }
+
+  .cutout-action > * {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  /* Bands converge: the copy and the image slide in from opposite edges, so
+     the section itself only needs to fade. */
+  [data-reveal].image-text-band {
+    transform: none;
+  }
+
+  [data-reveal="shown"] :is(.image-text-band__copy, .image-text-band__media) {
+    transition:
+      opacity var(--motion-deliberate),
+      transform var(--motion-deliberate);
+  }
+
+  [data-reveal="shown"] .image-text-band__media {
+    transition-delay: var(--duration-quick);
+  }
+
+  [data-reveal="pending"] .image-text-band__copy {
+    opacity: 0;
+    transform: var(--transform-reveal-inline);
+  }
+
+  [data-reveal="pending"] .image-text-band__media {
+    opacity: 0;
+    transform: var(--transform-reveal-inline-end);
+  }
+
+  /* Media-first layouts mirror the direction. */
+  [data-reveal="pending"]:is(
+      .image-text-band--media-copy,
+      .image-text-band--media-note-copy
+    )
+    .image-text-band__copy {
+    transform: var(--transform-reveal-inline-end);
+  }
+
+  [data-reveal="pending"]:is(
+      .image-text-band--media-copy,
+      .image-text-band--media-note-copy
+    )
+    .image-text-band__media {
+    transform: var(--transform-reveal-inline);
+  }
+
+  .image-text-band__title {
+    color: var(--fg);
+  }
+
+  .image-text-band__title span {
+    color: var(--teal-bright);
+  }
+
+  .image-text-band .lead {
+    color: var(--copy);
+  }
+
+  /* About: 760 / 144 / 616, image boolean cutout at bottom-right. */
+  .image-text-band--copy-media-cutout {
+    grid-template-columns: minmax(0, 0.5fr) minmax(0, 0.095fr) minmax(0, 0.405fr);
+    padding-block: var(--space-8);
+  }
+
+  .image-text-band--copy-media-cutout .image-text-band__copy {
+    grid-column: 1;
+  }
+
+
+  .image-text-band--copy-media-cutout .image-text-band__media {
+    grid-column: 3;
+  }
+
+  .image-text-band--copy-media-cutout .image-text-band__media > img {
+    object-position: 51% center;
+  }
+
+  /* Pipeline: the note itself drives the responsive image cutout. */
+  .image-text-band--media-note-copy {
+    grid-template-columns: minmax(0, 0.393fr) minmax(0, 0.203fr) minmax(0, 0.404fr);
+    padding-block: var(--space-8);
+  }
+
+  .image-text-band--media-note-copy .image-text-band__media {
+    --pipeline-image-radius: var(--radius-media);
+    isolation: isolate;
+    grid-column: 1;
+  }
+
+  .image-text-band--media-note-copy .image-text-band__media > img {
+    position: relative;
+    z-index: var(--layer-base);
+    border-radius: var(--pipeline-image-radius);
+    object-position: 48% center;
+  }
+
+  .image-text-band--media-note-copy .image-text-band__copy {
+    grid-column: 3;
+  }
+
+
+  .image-text-band__note {
+    position: absolute;
+    z-index: var(--layer-raised);
+    width: min(calc(var(--measure-copy) * 0.672), 100%);
+    padding: var(--space-5) var(--space-5);
+  }
+
+  .image-text-band__note-title {
+    color: var(--fg);
+  }
+
+  .image-text-band__note-copy {
+    color: var(--muted);
+  }
+
+  /* The note spans the media so the cutout can anchor to the image's right
+     edge, while the card inside it sets the cutout's size and offset. */
+  .image-text-band--media-note-copy .image-text-band__note {
+    --pipeline-cutout-radius: var(--radius-media);
+    --pipeline-cutout-gutter: var(--space-5);
+    --pipeline-note-inset: 49%;
+    isolation: isolate;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    padding: 0;
+  }
+
+  .image-text-band--media-note-copy .image-text-band__note-card {
+    --surface-radius: var(--pipeline-cutout-radius);
+    position: relative;
+    left: var(--pipeline-note-inset);
+    width: min(calc(var(--measure-copy) * 0.672), 100%);
+    height: auto;
+    padding: var(--space-5) var(--space-5);
+    background: var(--surface);
+  }
+
+  .image-text-band--media-note-copy .image-text-band__note::before,
+  .image-text-band--media-note-copy .image-text-band__note::after {
+    content: "";
+    position: absolute;
+    z-index: var(--layer-behind);
+    pointer-events: none;
+  }
+
+  /* Cutout body: from the card's left gutter to the image's right edge. */
+  .image-text-band--media-note-copy .image-text-band__note::before {
+    top: 0;
+    right: 0;
+    bottom: calc(var(--pipeline-cutout-gutter) * -1);
+    left: calc(var(--pipeline-note-inset) - var(--pipeline-cutout-gutter));
+    border-radius: 0 0 0 var(--pipeline-cutout-radius);
+    background: var(--bg);
+  }
+
+  /* Concave fillets where the cutout meets the image's top and right edges. */
+  .image-text-band--media-note-copy .image-text-band__note::after {
+    top: 0;
+    right: 0;
+    bottom: calc(
+      (var(--pipeline-cutout-gutter) + var(--pipeline-cutout-radius)) * -1
+    );
+    left: calc(
+      var(--pipeline-note-inset) - var(--pipeline-cutout-gutter) -
+        var(--pipeline-cutout-radius)
+    );
+    background:
+      radial-gradient(
+          circle at 0 100%,
+          transparent calc(var(--pipeline-cutout-radius) - var(--stroke-thin)),
+          var(--bg) var(--pipeline-cutout-radius)
+        )
+        left 0 top 0 / var(--pipeline-cutout-radius)
+        var(--pipeline-cutout-radius) no-repeat,
+      radial-gradient(
+          circle at 0 100%,
+          transparent calc(var(--pipeline-cutout-radius) - var(--stroke-thin)),
+          var(--bg) var(--pipeline-cutout-radius)
+        )
+        right 0 bottom 0 / var(--pipeline-cutout-radius)
+        var(--pipeline-cutout-radius) no-repeat;
+  }
+
+  /* Platform: 649 / 255 / 616 with a left-overlapping callout. */
+  .image-text-band--copy-note-media {
+    grid-template-columns: minmax(0, 0.427fr) minmax(0, 0.168fr) minmax(0, 0.405fr);
+    padding-block: var(--space-8);
+  }
+
+  .image-text-band--copy-note-media .image-text-band__copy {
+    grid-column: 1;
+  }
+
+
+  .image-text-band--copy-note-media .image-text-band__media {
+    grid-column: 3;
+  }
+
+  .image-text-band--copy-note-media .image-text-band__media > img {
+    object-position: center;
+  }
+
+  .image-text-band--copy-note-media .image-text-band__note {
+    top: 41%;
+    left: -33%;
+    width: min(calc(var(--measure-copy) * 0.625), 100%);
+    padding: 0;
+  }
+
+  .image-text-band--copy-note-media .image-text-band__note-card {
+    --surface-radius: var(--radius-media);
+    height: auto;
+    padding: var(--space-5) var(--space-6);
+    background: var(--surface);
+  }
+
+  /* Patients: 616 / 154 / 750. */
+  .image-text-band--media-copy {
+    grid-template-columns: minmax(0, 0.405fr) minmax(0, 0.102fr) minmax(0, 0.493fr);
+    padding-block: var(--space-8);
+  }
+
+  .image-text-band--media-copy .image-text-band__media {
+    grid-column: 1;
+  }
+
+  .image-text-band--media-copy .image-text-band__media > img {
+    object-position: 46% center;
+  }
+
+  .image-text-band--media-copy .image-text-band__copy {
+    grid-column: 3;
+  }
+
+  /* The careers banner settles in rather than rising. */
+  [data-reveal="pending"].careers-band {
+    transform: var(--transform-reveal-scale);
+  }
+
+  [data-reveal="shown"].careers-band {
+    transition:
+      opacity var(--motion-deliberate),
+      transform var(--motion-deliberate);
+  }
+
+  /* Careers: shared responsive media cutout with overlaid heading. The media
+     and copy share one grid cell, so the section's own padding never shifts the
+     heading off the image. */
+  .careers-band {
+    position: relative;
+    display: grid;
+    width: 100%;
+    margin: 0;
+    padding-block: var(--space-8);
+  }
+
+  .careers-band__media {
+    width: 100%;
+    grid-area: 1 / 1;
+    aspect-ratio: var(--ratio-banner);
+  }
+
+  .careers-band__media .media-cutout__image {
+    object-position: center 54%;
+  }
+
+  .careers-band__copy {
+    z-index: var(--layer-content);
+    grid-area: 1 / 1;
+    align-self: start;
+    justify-self: end;
+    margin: var(--space-6);
+    pointer-events: none;
+  }
+
+  .careers-band__title {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  /* Footer divider at y6640, content at y6696. */
+
+@media (max-width: 43.75rem) {
+  .landing-canvas {
+    position: static;
+    width: auto;
+    min-height: 0;
+    padding-bottom: 0;
+    transform: none;
+  }
+
+  :is(.hero__content.container, .landing-section-stack.container) {
+    width: calc(100% - var(--space-6));
+  }
+
+   .hero__copy,
+   .hero__intro {
+    width: 100%;
+  }
+
+   .hero__media > img {
+    object-position: 58% center;
+  }
+
+  /* The full-height hero already supplies the headroom. */
+   .hero__content {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+  }
+
+  /* Narrow copy runs the full width, so the scrim has to rise from the foot
+     rather than sit against the left edge. */
+   .hero__content::before {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--hero-scrim-soft) 25%,
+      var(--hero-scrim) 50%
+    );
+  }
+
+   .landing-section-stack {
+    padding-block: 0;
+  }
+
+   :is(
+    .image-text-band--copy-media-cutout,
+    .image-text-band--media-note-copy,
+    .image-text-band--copy-note-media,
+    .image-text-band--media-copy
+  ) {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: var(--space-5);
+    padding-block: var(--space-8);
+  }
+
+  :is(
+    .image-text-band--copy-media-cutout,
+    .image-text-band--media-note-copy,
+    .image-text-band--copy-note-media,
+    .image-text-band--media-copy
+  ) :is(.image-text-band__copy, .image-text-band__media) {
+    grid-column: auto;
+  }
+
+   :is(
+    .image-text-band--copy-media-cutout,
+    .image-text-band--media-note-copy,
+    .image-text-band--copy-note-media,
+    .image-text-band--media-copy
+  ) .image-text-band__copy {
+    order: 0;
+    padding-top: 0;
+  }
+
+   :is(
+    .image-text-band--copy-media-cutout,
+    .image-text-band--media-note-copy,
+    .image-text-band--copy-note-media,
+    .image-text-band--media-copy
+  ) .image-text-band__media {
+    order: 1;
+  }
+
+   .eyebrow {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+  }
+
+   .image-text-band .lead {
+    margin-top: var(--space-4);
+  }
+
+   .image-text-band--media-copy .lead {
+    margin-top: 0;
+  }
+
+   .image-text-band__note {
+    display: block;
+    border-radius: var(--radius-shell);
+  }
+
+   .image-text-band--media-note-copy .image-text-band__note {
+    top: 0;
+    right: var(--space-3);
+    left: var(--space-3);
+    width: auto;
+    padding: 0;
+  }
+
+   .image-text-band--media-note-copy .image-text-band__note::before,
+   .image-text-band--media-note-copy .image-text-band__note::after {
+    display: none;
+  }
+
+  .image-text-band--media-note-copy .image-text-band__note-card {
+    --surface-radius: var(--radius-shell);
+    left: 0;
+    width: auto;
+    padding: var(--space-4);
+  }
+
+  .image-text-band--media-note-copy .image-text-band__media {
+    --pipeline-image-radius: var(--radius-shell);
+  }
+
+   .image-text-band--copy-note-media .image-text-band__note {
+    top: auto;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    left: var(--space-3);
+    width: auto;
+    padding: 0;
+  }
+
+   .image-text-band--copy-note-media .image-text-band__note-card {
+    --surface-radius: var(--radius-shell);
+    padding: var(--space-4);
+  }
+
+   .careers-band__media {
+    aspect-ratio: auto;
+  }
+
+   .careers-band__copy {
+    margin: var(--space-4);
+  }
+}
+
+@media (max-width: 43.75rem) {
+  /* These blocks' own share of the shared small-screen rhythm. */
+  main :is(.image-text-band, .careers-band) {
+    padding-block: var(--space-6);
+  }
+}

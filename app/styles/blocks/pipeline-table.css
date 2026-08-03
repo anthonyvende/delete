@@ -1,0 +1,337 @@
+/*  Pipeline data visualization  */
+
+.pipeline-overview {
+  padding-block: var(--space-8);
+}
+
+.pipeline-table {
+  min-width: min(var(--measure-pipeline), 100%);
+  border-bottom: var(--stroke-strong) solid var(--accent);
+}
+
+.pipeline-table__phases,
+.pipeline-row {
+  display: grid;
+  grid-template-columns: 46% repeat(4, minmax(0, 1fr));
+}
+
+.pipeline-table__phases {
+  border-bottom: var(--stroke-strong) solid var(--accent);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.pipeline-table__phases span {
+  padding: var(--space-4) var(--space-3);
+  border-left: var(--stroke-thin) solid var(--accent-50);
+}
+
+.pipeline-table__phases span:first-child {
+  border-left: 0;
+}
+
+.pipeline-group {
+  margin-top: var(--space-6);
+}
+
+.pipeline-group__title {
+  width: min(calc(var(--measure-copy) * 0.515), 100%);
+  margin: 0;
+  padding: var(--space-4) var(--space-4);
+  border-radius: 0 0 var(--radius-xl);
+  background: var(--accent);
+  color: var(--surface);
+  font-family: var(--font-body);
+  font-size: var(--font-size-pipeline-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.pipeline-group--current .pipeline-group__title {
+  background: var(--teal);
+}
+
+.pipeline-group--future .pipeline-group__title {
+  background: var(--pipeline-blue);
+}
+
+.pipeline-row {
+  border-bottom: var(--stroke-thin) solid var(--accent-50);
+}
+
+.pipeline-row__label {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-medium);
+}
+
+.pipeline-row__status,
+.pipeline-row__phase-scale {
+  display: none;
+}
+
+.pipeline-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-left: var(--stroke-thin) solid var(--accent-50);
+}
+
+.pipeline-stage__bar {
+  position: absolute;
+  z-index: var(--layer-raised);
+  left: 0;
+  width: calc(var(--pipeline-progress) * 100% - var(--radius-sm));
+  padding-right: var(--space-3);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--soft-blue);
+  color: var(--teal);
+  line-height: var(--line-height-control);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* The table plays in as it scrolls into view: group chips slide in, rows fade
+   up, then each bar grows from the left. Without the reveal script none of the
+   pending states apply, so the table renders complete. */
+/* Scoped to the shown state so hiding is instant and only the reveal plays.
+   Transitioning both ways lets a section that is only briefly pending — one
+   scrolled to straight away — animate out and back, which reads as no
+   animation at all. */
+[data-reveal="shown"] :is(
+    .pipeline-group__title,
+    .pipeline-row__label,
+    .pipeline-row__status
+  ) {
+  transition:
+    opacity var(--motion-deliberate),
+    transform var(--motion-deliberate);
+}
+
+[data-reveal="shown"] .pipeline-stage__bar {
+  transition: width var(--motion-unhurried);
+}
+
+[data-reveal="pending"] .pipeline-group__title {
+  opacity: 0;
+  transform: var(--transform-reveal-inline);
+}
+
+[data-reveal="pending"] :is(.pipeline-row__label, .pipeline-row__status) {
+  opacity: 0;
+  transform: var(--transform-reveal-hidden);
+}
+
+[data-reveal="pending"] .pipeline-stage__bar {
+  width: 0;
+}
+
+.pipeline-row:nth-child(2) :is(.pipeline-row__label, .pipeline-row__status),
+.pipeline-row:nth-child(2) .pipeline-stage__bar {
+  transition-delay: var(--duration-standard);
+}
+
+.pipeline-row:nth-child(3) :is(.pipeline-row__label, .pipeline-row__status),
+.pipeline-row:nth-child(3) .pipeline-stage__bar {
+  transition-delay: var(--duration-slow);
+}
+
+.pipeline-row:nth-child(4) :is(.pipeline-row__label, .pipeline-row__status),
+.pipeline-row:nth-child(4) .pipeline-stage__bar {
+  transition-delay: var(--duration-reveal);
+}
+
+.pipeline-row:nth-child(n + 5) :is(.pipeline-row__label, .pipeline-row__status),
+.pipeline-row:nth-child(n + 5) .pipeline-stage__bar {
+  transition-delay: var(--duration-deliberate);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pipeline-group__title,
+  .pipeline-row__label,
+  .pipeline-row__status,
+  .pipeline-stage__bar {
+    transition: none;
+  }
+}
+
+.pipeline-stage__bar--current {
+  background: var(--teal);
+  color: var(--surface);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-control);
+  text-align: right;
+}
+
+.pipeline-legend {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  color: var(--muted);
+}
+
+.pipeline-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pipeline-legend i {
+  width: var(--space-7);
+  border-radius: var(--radius-pill);
+  background: var(--soft-blue);
+}
+
+.pipeline-legend .is-current {
+  background: var(--teal);
+}
+
+.content-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-8);
+  align-items: start;
+  padding-bottom: var(--space-4);
+}
+
+.content-aside__copy,
+.content-aside__aside {
+  min-width: 0;
+}
+
+@media (max-width: 73.75rem) {
+
+  .pipeline-table {
+    min-width: min(var(--measure-pipeline-compact), 100%);
+  }
+
+  .content-aside {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 43.75rem) {
+
+  .pipeline-overview {
+    padding: var(--space-2) 0 var(--space-7);
+  }
+
+  .pipeline-overview .data-scroll {
+    overflow: visible;
+    padding: 0;
+  }
+
+  .pipeline-table {
+    display: grid;
+    min-width: 0;
+    gap: var(--space-5);
+    border-bottom: 0;
+  }
+
+  .pipeline-table__phases {
+    display: none;
+  }
+
+  .pipeline-group {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: 0;
+  }
+
+  .pipeline-group__title {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) 0;
+    font-size: var(--font-size-action);
+  }
+
+  .pipeline-row {
+    display: grid;
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-4);
+    border: 0;
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .pipeline-row__label {
+    display: block;
+    padding: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-action);
+  }
+
+  .pipeline-row__status {
+    display: block;
+    color: var(--accent);
+    font-size: var(--font-size-caption-tight);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .pipeline-row__phase-scale {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    color: var(--muted-secondary);
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-tight);
+    text-align: center;
+  }
+
+  .pipeline-row__phase-scale span:first-child {
+    text-align: left;
+  }
+
+  .pipeline-row__phase-scale span:last-child {
+    text-align: right;
+  }
+
+  .pipeline-stage {
+    display: none;
+  }
+
+  .pipeline-stage--track {
+    display: block;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background:
+      repeating-linear-gradient(
+        to right,
+        transparent 0 calc(25% - var(--stroke-thin)),
+        var(--accent-20) calc(25% - var(--stroke-thin)) 25%
+      ),
+      var(--pipeline-surface);
+  }
+
+  .pipeline-stage__bar {
+    width: calc(var(--pipeline-progress) * 25%);
+    height: 100%;
+    padding: 0;
+    color: transparent;
+    text-indent: 100%;
+    white-space: nowrap;
+    line-height: var(--line-height-none);
+  }
+
+  .pipeline-legend {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .study-link:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  main .pipeline-overview {
+    padding-block: var(--space-6);
+  }
+}

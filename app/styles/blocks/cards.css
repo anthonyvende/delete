@@ -1,0 +1,863 @@
+/*  Reusable card blocks  */
+
+.surface-card {
+  border-radius: var(--surface-radius, var(--radius-card));
+  background: var(--surface);
+  box-shadow: var(--surface-shadow, var(--shadow-card));
+}
+
+.feature-card {
+  padding: var(--space-5) var(--space-5);
+}
+
+.feature-card__icon {
+  width: var(--space-7);
+  margin-bottom: var(--space-5);
+  object-fit: contain;
+  aspect-ratio: var(--ratio-square);
+}
+
+.feature-card__icon:not(.value-icon),
+.icon-text-card__icon img {
+  transform-origin: center;
+  transition: transform var(--motion-medium);
+  will-change: transform;
+}
+
+.feature-card:hover .feature-card__icon:not(.value-icon),
+.icon-text-card:hover .icon-text-card__icon img {
+  transform: var(--transform-icon-hover);
+}
+
+.value-icon {
+  display: block;
+  overflow: visible;
+}
+
+.value-icon * {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity, stroke-dashoffset;
+}
+
+.value-icon--shield .value-icon__outline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.value-icon--clock .value-icon__needle {
+  transform-box: view-box;
+  transform-origin: 67.4% 43.8%;
+}
+
+.feature-card:hover .value-icon__figure--left,
+.feature-card:focus-within .value-icon__figure--left {
+  animation: value-icon-people-left var(--animation-people);
+}
+
+.feature-card:hover .value-icon__figure--center,
+.feature-card:focus-within .value-icon__figure--center {
+  animation: value-icon-people-center var(--animation-people);
+}
+
+.feature-card:hover .value-icon__figure--right,
+.feature-card:focus-within .value-icon__figure--right {
+  animation: value-icon-people-right var(--animation-people);
+}
+
+.feature-card:hover .value-icon--shield .value-icon__outline,
+.feature-card:focus-within .value-icon--shield .value-icon__outline {
+  animation: value-icon-shield-draw var(--animation-shield);
+}
+
+.feature-card:hover .value-icon--shield .value-icon__heart,
+.feature-card:focus-within .value-icon--shield .value-icon__heart {
+  animation: value-icon-heartbeat var(--animation-heartbeat);
+}
+
+.feature-card:hover .value-icon--clock .value-icon__needle,
+.feature-card:focus-within .value-icon--clock .value-icon__needle {
+  animation: value-icon-clock-needle var(--animation-clock);
+}
+
+.feature-card:hover .value-icon--clock .value-icon__speed-line,
+.feature-card:focus-within .value-icon--clock .value-icon__speed-line {
+  animation: value-icon-speed-lines var(--animation-speed-lines);
+}
+
+.feature-card:hover .value-icon--hand .value-icon__hand,
+.feature-card:focus-within .value-icon--hand .value-icon__hand {
+  animation: value-icon-hand-lift var(--animation-hand);
+}
+
+.feature-card:hover .value-icon--hand .value-icon__heart,
+.feature-card:focus-within .value-icon--hand .value-icon__heart {
+  animation: value-icon-heartbeat var(--animation-heartbeat);
+}
+
+.feature-card:hover .value-icon--hand .value-icon__ray,
+.feature-card:focus-within .value-icon--hand .value-icon__ray {
+  animation: value-icon-rays var(--animation-rays);
+}
+
+/* Antibody arms flex, the shield person pulses, the vial tips and doses. */
+.feature-card:hover .value-icon--antibody .value-icon__arm--left,
+.feature-card:focus-within .value-icon--antibody .value-icon__arm--left,
+.icon-text-card:hover .value-icon--antibody .value-icon__arm--left {
+  animation: value-icon-antibody-left var(--animation-antibody);
+}
+
+.feature-card:hover .value-icon--antibody .value-icon__arm--right,
+.feature-card:focus-within .value-icon--antibody .value-icon__arm--right,
+.icon-text-card:hover .value-icon--antibody .value-icon__arm--right {
+  animation: value-icon-antibody-right var(--animation-antibody);
+}
+
+.feature-card:hover .value-icon--antibody .value-icon__tip,
+.feature-card:focus-within .value-icon--antibody .value-icon__tip,
+.icon-text-card:hover .value-icon--antibody .value-icon__tip {
+  animation: value-icon-heartbeat var(--animation-heartbeat);
+}
+
+.feature-card:hover .value-icon--shield-person .value-icon__outline,
+.feature-card:focus-within .value-icon--shield-person .value-icon__outline,
+.icon-text-card:hover .value-icon--shield-person .value-icon__outline {
+  animation: value-icon-shield-draw var(--animation-shield);
+}
+
+.feature-card:hover .value-icon--shield-person .value-icon__figure,
+.feature-card:focus-within .value-icon--shield-person .value-icon__figure,
+.icon-text-card:hover .value-icon--shield-person .value-icon__figure {
+  animation: value-icon-people-center var(--animation-people);
+}
+
+.icon-text-card:hover .value-icon--vial .value-icon__vial {
+  animation: value-icon-vial-tilt var(--animation-vial);
+}
+
+.feature-card:hover .value-icon--vial .value-icon__vial,
+.feature-card:focus-within .value-icon--vial .value-icon__vial {
+  animation: value-icon-vial-tilt var(--animation-vial);
+}
+
+.feature-card:hover .value-icon--vial .value-icon__dose,
+.feature-card:focus-within .value-icon--vial .value-icon__dose,
+.icon-text-card:hover .value-icon--vial .value-icon__dose {
+  animation: value-icon-heartbeat var(--animation-heartbeat);
+}
+
+/* The icons play once as the tile reveals, so the animation is seen without
+   needing a hover — hover still replays it. */
+[data-reveal="shown"] .value-icon--antibody .value-icon__arm--left {
+  animation: value-icon-antibody-left var(--animation-icon-intro);
+}
+
+[data-reveal="shown"] .value-icon--antibody .value-icon__arm--right {
+  animation: value-icon-antibody-right var(--animation-icon-intro);
+}
+
+[data-reveal="shown"] .value-icon--antibody .value-icon__tip {
+  animation: value-icon-heartbeat var(--animation-icon-intro);
+}
+
+[data-reveal="shown"] .value-icon--shield-person .value-icon__outline {
+  animation: value-icon-shield-draw var(--animation-icon-draw);
+}
+
+[data-reveal="shown"] .value-icon--shield-person .value-icon__figure {
+  animation: value-icon-people-center var(--animation-icon-intro);
+}
+
+[data-reveal="shown"] .value-icon--vial .value-icon__vial {
+  animation: value-icon-vial-tilt var(--animation-icon-intro);
+}
+
+[data-reveal="shown"] .value-icon--vial .value-icon__dose {
+  animation: value-icon-heartbeat var(--animation-icon-intro);
+}
+
+@keyframes value-icon-antibody-left {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: var(--transform-antibody-left);
+  }
+}
+
+@keyframes value-icon-antibody-right {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: var(--transform-antibody-right);
+  }
+}
+
+@keyframes value-icon-vial-tilt {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  45% {
+    transform: var(--transform-vial-tilt);
+  }
+}
+
+@keyframes value-icon-people-left {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  45% {
+    transform: var(--transform-people-left);
+  }
+}
+
+@keyframes value-icon-people-center {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: var(--transform-people-center);
+  }
+}
+
+@keyframes value-icon-people-right {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  45% {
+    transform: var(--transform-people-right);
+  }
+}
+
+@keyframes value-icon-shield-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes value-icon-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  22% {
+    transform: scale(1.14);
+  }
+  36% {
+    transform: scale(0.96);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes value-icon-clock-needle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  55% {
+    transform: var(--transform-clock-mid);
+  }
+  72% {
+    transform: var(--transform-clock-settle);
+  }
+}
+
+@keyframes value-icon-speed-lines {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  45% {
+    opacity: 0.4;
+    transform: var(--transform-speed-lines);
+  }
+}
+
+@keyframes value-icon-hand-lift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  45% {
+    transform: var(--transform-hand-lift);
+  }
+}
+
+@keyframes value-icon-rays {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.9);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card__icon:not(.value-icon),
+  .icon-text-card__icon img {
+    transition: none;
+  }
+
+  .feature-card:hover .feature-card__icon:not(.value-icon),
+  .icon-text-card:hover .icon-text-card__icon img {
+    transform: none;
+  }
+
+  .value-icon * {
+    animation: none !important;
+  }
+}
+
+/* Beats `.container`, which would otherwise stretch the stack full width. */
+/* The gap belongs to the stack itself, so every use of the block spaces its
+   cards — the width override only needs to beat `.container`. */
+.next-step-stack {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Cap the measure but leave `.container` to own the width, so the stack keeps
+   the page gutter instead of spanning the full viewport. */
+.next-steps.next-step-stack {
+  max-width: var(--measure-next-feature);
+  margin-inline: auto;
+}
+
+/* Next steps slide in from the leading edge, one after the other. */
+[data-reveal].next-step-stack {
+  transform: none;
+}
+
+/* Carries the hover transitions too: this rule outranks the base one, and the
+   shorthand would otherwise drop them once the card is revealed. */
+[data-reveal="shown"] .next-step {
+  transition:
+    opacity var(--motion-deliberate),
+    transform var(--motion-deliberate),
+    background-color var(--motion-quick),
+    color var(--motion-standard);
+}
+
+[data-reveal="pending"] .next-step {
+  opacity: 0;
+  transform: var(--transform-reveal-inline);
+}
+
+.next-step:nth-child(2) {
+  transition-delay: var(--duration-quick);
+}
+
+.next-step:nth-child(n + 3) {
+  transition-delay: var(--duration-standard);
+}
+
+/* Image, copy, and a circular action sitting in a cutout at the card's
+   bottom-right — the same cutout the media blocks use. */
+.next-step {
+  --media-cutout-radius: var(--radius-media);
+  --media-cutout-surface: var(--bg);
+  /* A box shadow would draw the card's full rectangle straight through the
+     painted notch, so the card stays flat and only the circle casts one. */
+  --surface-shadow: none;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+  align-items: center;
+  overflow: visible;
+  border-radius: var(--radius-media);
+  color: var(--fg);
+  /* The background lands first so the label never turns white while the card
+     is still light. No transform here: while the card is pending, transitioning
+     transform would animate it into the hidden state instead of snapping. */
+  transition:
+    background-color var(--motion-quick),
+    color var(--motion-standard);
+}
+
+.next-step__action {
+  padding: var(--space-4);
+}
+
+/* The circle sits proud of the cutout, so it carries its own shadow. */
+.next-step__arrow {
+  box-shadow: var(--shadow-card-light);
+}
+
+/* On hover the circle fills accent and the arrow levels out to point right. */
+.next-step:is(:hover, :focus-visible) .next-step__arrow {
+  transform: var(--transform-nudge-right);
+  box-shadow: var(--shadow-card-hover);
+  background: var(--accent);
+  color: var(--surface);
+}
+
+.next-step:is(:hover, :focus-visible) .next-step__arrow .arrow-icon {
+  transform: var(--transform-arrow-hover);
+}
+
+/* The person card's arrow keeps its diagonal and simply travels right. */
+/* The arrow levels out to point right, matching every other card. */
+.person-card:is(:hover, :focus-within) .person-card__arrow .arrow-icon {
+  transform: var(--transform-arrow-hover);
+}
+
+.next-step:is(:hover, :focus-visible) {
+  color: var(--surface);
+  background: var(--accent);
+  transform: var(--transform-lift);
+}
+
+.next-step__media {
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: var(--radius-media) 0 0 var(--radius-media);
+  aspect-ratio: var(--ratio-square);
+}
+
+.next-step__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--motion-slow);
+}
+
+.next-step:hover .next-step__media img {
+  transform: scale(1.06);
+}
+
+.next-step__media--color {
+  background: var(--soft-blue);
+}
+
+.next-step__media--color.is-accent {
+  background: var(--accent);
+}
+
+/* The trailing pad clears the cutout, so a long title wraps onto another line
+   instead of running under the notch and being clipped. */
+.next-step__copy {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  padding-right: var(--space-8);
+}
+
+.next-step__copy > span {
+  color: var(--muted);
+  font-size: var(--font-size-small);
+}
+
+.next-step:is(:hover, :focus-visible) .next-step__copy > span {
+  color: var(--surface-72);
+}
+
+.next-step__copy strong {
+  color: var(--accent);
+  font-size: var(--font-size-card-title);
+  line-height: var(--line-height-snug);
+}
+
+.next-step:is(:hover, :focus-visible) .next-step__copy strong {
+  color: var(--surface);
+}
+
+.next-step__arrow {
+  width: var(--control-size-lg);
+  background: var(--surface);
+  color: var(--accent);
+  aspect-ratio: var(--ratio-square);
+  transition: transform var(--motion-standard);
+}
+
+.next-step__arrow svg {
+  width: var(--control-icon-size);
+  aspect-ratio: var(--ratio-square);
+}
+
+.study-links {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.study-link {
+  display: grid;
+  grid-template-columns: minmax(0, 0.35fr) minmax(0, 1fr) auto;
+  align-items: center;
+  overflow: hidden;
+  transition:
+    transform var(--motion-standard),
+    background-color var(--motion-standard),
+    color var(--motion-standard);
+}
+
+.study-link:hover {
+  color: var(--surface);
+  background: var(--accent);
+  transform: var(--transform-nudge-right);
+}
+
+.study-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.study-link__copy {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--font-size-emphasis);
+  line-height: var(--line-height-snug);
+}
+
+.study-link__arrow {
+  width: var(--space-6);
+  margin-inline-end: var(--space-5);
+  background: var(--accent);
+  color: var(--surface);
+  transition: background-color var(--motion-fast), color var(--motion-fast);
+  aspect-ratio: var(--ratio-square);
+}
+
+.study-link:hover .study-link__arrow {
+  color: var(--accent);
+  background: var(--surface);
+}
+
+.study-link__arrow svg {
+  width: var(--control-icon-size);
+}
+
+.person-card-shell {
+  display: grid;
+}
+
+.person-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--motion-standard), box-shadow var(--motion-standard);
+}
+
+/* Stretched trigger: a sibling of the body, so it covers the photo too. The
+   body is an `expanding-action` (relative + overflow hidden), which would
+   otherwise clip the trigger to the text area. */
+.person-card__trigger {
+  position: absolute;
+  z-index: var(--layer-raised);
+  inset: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.person-card:is(:hover, :focus-visible) {
+  transform: var(--transform-lift);
+  box-shadow: var(--shadow-card-raised);
+}
+
+.person-card:is(:hover, :focus-visible) .person-card__body {
+  --heading-color: var(--surface);
+  --paragraph-color: var(--surface);
+  color: var(--surface);
+}
+
+.person-card:is(:hover, :focus-visible) .person-card__body::before {
+  clip-path: circle(
+    150% at var(--expanding-action-origin-x) var(--expanding-action-origin-y)
+  );
+}
+
+.person-card__photo {
+  width: 100%;
+  object-fit: cover;
+}
+
+.person-card__body {
+  --expanding-action-size: var(--control-size-md);
+  --expanding-action-right: var(--space-4);
+  --expanding-action-bottom: var(--space-4);
+  --expanding-action-origin-y: calc(
+    100% - var(--expanding-action-bottom) - var(--expanding-action-size) / 2
+  );
+  padding: var(--space-5) var(--space-5) var(--space-7);
+}
+
+.person-card__name {
+  overflow-wrap: anywhere;
+}
+
+.person-card__role {
+  margin: 0 0 var(--space-4);
+  font-weight: var(--font-weight-bold);
+}
+
+.person-card__arrow {
+  box-shadow: var(--shadow-card-light);
+  position: absolute;
+  pointer-events: none;
+  right: var(--expanding-action-right);
+  bottom: var(--expanding-action-bottom);
+  width: var(--expanding-action-size);
+  aspect-ratio: var(--ratio-square);
+  transition: transform var(--motion-standard);
+}
+
+/* Keyed to the card, not the body: hovering the photo floods the body blue,
+   so the circle must swap to white at the same moment or it vanishes
+   accent-on-accent. */
+.person-card:is(:hover, :focus-within) .person-card__arrow {
+  transform: var(--transform-nudge-right);
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.person-card__arrow svg {
+  width: var(--control-icon-size);
+}
+
+.process-card {
+  padding: var(--space-5) var(--space-5);
+  transition: transform var(--motion-standard), box-shadow var(--motion-standard);
+}
+
+.process-card:hover {
+  transform: var(--transform-lift);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.process-card .icon-text-card__icon {
+  display: grid;
+  width: var(--space-7);
+  place-items: center;
+  margin: 0 auto var(--space-4);
+  border: var(--stroke-strong) solid var(--teal);
+  border-radius: var(--radius-circle);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: var(--font-size-card-heading-wide);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-solid);
+  aspect-ratio: var(--ratio-square);
+}
+
+.process-card .icon-text-card__title {
+  text-align: center;
+}
+
+.process-card__copy {
+  color: var(--muted-secondary);
+}
+
+.resource-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+  transition: transform var(--motion-standard);
+}
+
+.resource-card:hover {
+  transform: var(--transform-lift);
+}
+
+.resource-card__logo {
+  display: grid;
+  place-items: center;
+  padding: var(--space-5);
+  background: var(--soft-blue);
+}
+
+.resource-card__logo img {
+  max-width: calc(var(--space-8) + var(--space-7));
+  object-fit: contain;
+}
+
+.resource-card__label {
+  --expanding-action-size: var(--control-size-sm);
+  --expanding-action-right: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4);
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+  transition: color var(--motion-standard);
+}
+
+.resource-card__arrow {
+  width: var(--control-size-sm);
+  aspect-ratio: var(--ratio-square);
+}
+
+.resource-card:is(:hover, :focus-visible) .resource-card__label {
+  color: var(--surface);
+}
+
+.resource-card:is(:hover, :focus-visible) .resource-card__label::before {
+  clip-path: circle(
+    150% at var(--expanding-action-origin-x) var(--expanding-action-origin-y)
+  );
+}
+
+.resource-card:is(:hover, :focus-visible) .resource-card__arrow {
+  background: var(--surface);
+  color: var(--accent);
+  transform: scale(1.06);
+}
+
+.job-card {
+  --job-card-heading-color: var(--fg);
+  --job-card-meta-color: var(--accent);
+  --heading-color: var(--job-card-heading-color);
+  --expanding-action-size: var(--control-size-md);
+  --expanding-action-right: var(--space-4);
+  --expanding-action-bottom: var(--space-4);
+  --expanding-action-origin-y: calc(
+    100% - var(--expanding-action-bottom) - var(--expanding-action-size) / 2
+  );
+  --expanding-action-top: auto;
+  --expanding-action-translate: 0;
+  position: relative;
+  padding: var(--space-5) var(--space-5) var(--space-7);
+  transition:
+    transform var(--motion-standard),
+    background-color var(--motion-standard),
+    color var(--motion-standard);
+}
+
+.job-card:is(:hover, :focus-visible) {
+  --job-card-heading-color: var(--surface);
+  --job-card-meta-color: var(--surface);
+  color: var(--surface);
+  transform: var(--transform-lift);
+}
+
+.job-card__title {
+  padding-inline-end: var(--space-7);
+  transition: color var(--motion-standard);
+}
+
+.job-card__location {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  color: var(--job-card-meta-color);
+  font-size: var(--font-size-caption);
+  transition: color var(--motion-standard);
+}
+
+.job-card__location::before {
+  content: "";
+  width: var(--status-dot-size);
+  border-radius: var(--radius-circle);
+  background: currentcolor;
+  aspect-ratio: var(--ratio-square);
+}
+
+.job-card__arrow {
+  position: absolute;
+  right: var(--expanding-action-right);
+  bottom: var(--expanding-action-bottom);
+  width: var(--expanding-action-size);
+  aspect-ratio: var(--ratio-square);
+}
+
+.job-card__arrow svg {
+  width: var(--control-icon-size);
+}
+
+@media (max-width: 43.75rem) {
+
+  .feature-card,
+  .process-card {
+    min-height: 0;
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .feature-card__icon {
+    width: var(--space-6);
+    margin-bottom: var(--space-4);
+    aspect-ratio: var(--ratio-square);
+  }
+
+
+  .next-step {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr) auto;
+  }
+
+  .next-step__copy {
+    gap: var(--space-2);
+    padding: var(--space-4);
+    /* The shorthand above would drop the desktop clearance, letting a long
+       title run under the cutout and the arrow sitting in it. */
+    padding-right: var(--space-7);
+  }
+
+  .next-step__copy > span {
+    font-size: var(--font-size-caption-tight);
+  }
+
+  .next-step__copy strong {
+    font-size: var(--font-size-body-compact);
+  }
+
+  .next-step__arrow {
+    width: var(--control-size-md);
+    aspect-ratio: var(--ratio-square);
+  }
+
+  .next-step__arrow svg {
+    width: var(--control-icon-size);
+  }
+
+  .study-link {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr) auto;
+  }
+
+  .study-link__copy {
+    padding: var(--space-4);
+    font-size: var(--font-size-body);
+  }
+
+  .study-link__arrow {
+    width: var(--control-size-sm);
+    aspect-ratio: var(--ratio-square);
+  }
+
+  .person-card__body {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .job-card {
+    padding: var(--space-4) var(--space-4) var(--space-7);
+  }
+}
+
+/* Moved here from the shared layout sheet so the block owns its own rhythm. */
+.next-step-stack {
+  padding-block: var(--space-8);
+}
+
+@media (max-width: 43.75rem) {
+  main .next-step-stack {
+    padding-block: var(--space-6);
+  }
+}

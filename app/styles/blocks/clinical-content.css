@@ -1,0 +1,303 @@
+/* Reusable clinical information blocks */
+
+.fact-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-8);
+  align-items: center;
+}
+
+/* The image is masked around the quote using the shared cutout, so the notch
+   tracks the card instead of being a fixed shape. */
+.fact-feature__media {
+  --media-cutout-radius: var(--radius-media);
+  --media-cutout-surface: var(--bg);
+  position: relative;
+  isolation: isolate;
+  padding-bottom: var(--space-7);
+}
+
+.fact-feature__media img {
+  width: 100%;
+  border-radius: var(--radius-media);
+  object-fit: cover;
+}
+
+.fact-feature__quote {
+  bottom: var(--space-7);
+  width: min(calc(var(--measure-copy) * 0.72), 88%);
+}
+
+.fact-feature__media blockquote {
+  margin: 0;
+  padding: var(--space-5) var(--space-5);
+  border-radius: var(--radius-2xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  font-size: var(--font-size-action);
+  text-align: center;
+}
+
+.fact-feature__media blockquote::before,
+.fact-feature__media blockquote::after {
+  color: var(--teal);
+  font-size: var(--font-size-section);
+  font-weight: var(--font-weight-bold);
+}
+
+.fact-feature__media blockquote::before {
+  content: "“";
+}
+
+.fact-feature__media blockquote::after {
+  content: "”";
+}
+
+.fact-feature__copy {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-copy);
+}
+
+/* The figure keeps the body colour; only the highlighted numbers go teal. */
+.fact-feature__copy strong {
+  color: var(--fg);
+}
+
+/* Optional dotted map between the intro and the figure. */
+.fact-feature__map {
+  display: block;
+  width: 100%;
+  margin: var(--space-5) 0;
+  object-fit: contain;
+}
+
+.icon-text-collection {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.icon-text-collection .icon-text-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.22fr) minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+}
+
+.icon-text-collection .icon-text-card__icon {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  background: var(--soft-blue);
+}
+
+/* The shared icon style carries a bottom margin for stacked cards; here the
+   icon is centred in its panel, so it is reset. */
+.icon-text-collection .icon-text-card__icon :is(img, .value-icon) {
+  width: var(--space-8);
+  margin: 0;
+  aspect-ratio: var(--ratio-square);
+}
+
+.icon-text-collection .icon-text-card__copy {
+  align-self: center;
+  padding: var(--space-5) var(--space-6);
+}
+
+.icon-text-collection .icon-text-card__description {
+  color: var(--muted);
+}
+
+.resource-collection__grid {
+  display: grid;
+  width: min(var(--measure-media), 100%);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-inline: auto;
+}
+
+.comparison {
+  min-width: 0;
+}
+
+.comparison__note {
+  display: block;
+  margin-top: var(--space-3);
+}
+
+.comparison .data-scroll {
+  max-width: 100%;
+}
+
+.comparison__table {
+  min-width: min(var(--measure-comparison), 100%);
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--fg);
+}
+
+.comparison__table th,
+.comparison__table td {
+  padding: var(--space-3) var(--space-4);
+  border-right: var(--stroke-thin) solid var(--accent-50);
+  border-bottom: var(--stroke-thin) solid var(--accent-50);
+  text-align: center;
+}
+
+.comparison__table th:first-child,
+.comparison__table td:first-child {
+  width: 39%;
+  text-align: left;
+}
+
+.comparison__table th:last-child,
+.comparison__table td:last-child {
+  background: var(--soft-blue);
+}
+
+/* Multiply drops the white plate the supplied logos ship with. */
+.comparison__table thead img {
+  max-width: calc(var(--space-8) * 1.14);
+  margin-inline: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* Each row highlights on hover so the eye can track across the columns. */
+.comparison__table tbody tr {
+  transition: background-color var(--motion-fast);
+}
+
+.comparison__table tbody tr:hover {
+  background: var(--accent-10);
+}
+
+.comparison__table tbody tr:hover td:last-child,
+.comparison__table tbody tr:hover th:last-child {
+  background: var(--blue-mid);
+}
+
+.comparison-pill {
+  display: inline-grid;
+  width: min(var(--space-8), 100%);
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--teal);
+  color: var(--surface);
+  font-weight: var(--font-weight-bold);
+}
+
+.comparison-pill--negative {
+  background: var(--warning);
+}
+
+@media (max-width: 50rem) {
+  .fact-feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 43.75rem) {
+
+  .fact-feature__media blockquote {
+    right: var(--space-3);
+    width: calc(100% - var(--space-5));
+    padding: var(--space-4);
+    font-size: var(--font-size-body-compact);
+  }
+
+  /* A narrow icon rail leaves too little room for the copy, so the panel
+     becomes a band above it. */
+  .icon-text-collection .icon-text-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .icon-text-collection .icon-text-card__icon {
+    padding: var(--space-4);
+  }
+
+  .icon-text-collection .icon-text-card__icon :is(img, .value-icon) {
+    width: calc(var(--space-6) * 1.3);
+  }
+
+  .icon-text-collection .icon-text-card__copy {
+    padding: var(--space-4) var(--space-4);
+  }
+
+  .resource-collection__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison .data-scroll {
+    overflow: visible;
+    padding: 0;
+  }
+
+  .comparison__table,
+  .comparison__table tbody,
+  .comparison__table tr,
+  .comparison__table th,
+  .comparison__table td {
+    display: block;
+  }
+
+  .comparison__table {
+    min-width: 100%;
+  }
+
+  .comparison__table thead {
+    display: none;
+  }
+
+  .comparison__table tbody {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .comparison__table tbody tr {
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .comparison__table tbody th:first-child {
+    width: 100%;
+    padding: var(--space-4);
+    border: 0;
+    background: var(--soft-blue);
+  }
+
+  .comparison__table tbody td {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-right: 0;
+  }
+
+  .comparison__table tbody td .comparison-pill {
+    width: var(--control-size-md);
+    aspect-ratio: var(--ratio-square);
+    border-radius: var(--radius-circle);
+  }
+
+  .comparison__table tbody td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+/* Moved here from the shared layout sheet: this heading belongs to the process
+   collection block. */
+.process-heading {
+  margin: 0 0 var(--space-6);
+  text-align: center;
+}
+
+.process-heading strong {
+  color: var(--teal);
+}

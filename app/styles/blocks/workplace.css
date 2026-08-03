@@ -1,0 +1,28 @@
+/* Reusable workplace content blocks */
+
+.notice-list {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-8);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-card);
+}
+
+.notice-list__item {
+  display: grid;
+  gap: var(--space-2);
+}
+
+@media (max-width: 43.75rem) {
+
+  .notice-list {
+    padding-block: var(--space-5) var(--space-8);
+    font-size: var(--font-size-tiny);
+  }
+}
+
+@media (max-width: 43.75rem) {
+  main .notice-list {
+    padding-block: var(--space-6);
+  }
+}

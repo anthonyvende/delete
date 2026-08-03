@@ -1,0 +1,205 @@
+/* Shared news section and article cards. */
+
+.article-section {
+  display: grid;
+  grid-template-areas:
+    "intro action"
+    "cards cards";
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-7) var(--space-5);
+  padding-block: var(--space-8);
+}
+
+.article-section .section__intro {
+  grid-area: intro;
+}
+
+.article-section__heading {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.article-section__title {
+  color: var(--fg);
+}
+
+.article-section__title span {
+  color: var(--teal-bright);
+}
+
+.article-section > .button {
+  grid-area: action;
+  align-self: start;
+  justify-self: end;
+}
+
+.article-grid {
+  display: grid;
+  grid-area: cards;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+/* Cards deal in one after another instead of the grid moving as a block. */
+[data-reveal].article-grid {
+  transform: none;
+}
+
+/* Carries the hover transitions too: this rule outranks the base one, and the
+   shorthand would otherwise drop them once the card is revealed. */
+[data-reveal="shown"] .article-card {
+  transition:
+    opacity var(--motion-deliberate),
+    transform var(--motion-deliberate),
+    color var(--motion-standard),
+    box-shadow var(--motion-standard);
+}
+
+[data-reveal="pending"] .article-card {
+  opacity: 0;
+  transform: var(--transform-reveal-hidden);
+}
+
+.article-card:nth-child(2) {
+  transition-delay: var(--duration-quick);
+}
+
+.article-card:nth-child(3) {
+  transition-delay: var(--duration-standard);
+}
+
+.article-card:nth-child(n + 4) {
+  transition-delay: var(--duration-slow);
+}
+
+.article-card {
+  --surface-shadow: var(--shadow-card-light);
+  --expanding-action-size: var(--control-size-md);
+  --expanding-action-right: var(--space-3);
+  --expanding-action-bottom: var(--space-3);
+  --expanding-action-origin-y: calc(
+    100% - var(--expanding-action-bottom) - var(--expanding-action-size) / 2
+  );
+  display: block;
+  padding: var(--space-5) var(--space-6);
+  border: 0;
+  color: var(--fg);
+  /* No transform here: while the card is pending, transitioning transform
+     would animate it into the hidden state instead of snapping to it. */
+  transition:
+    color var(--motion-standard),
+    box-shadow var(--motion-standard);
+}
+
+.article-card__meta {
+  display: block;
+  margin-bottom: var(--space-4);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-copy-compact);
+  transition: color var(--motion-standard);
+}
+
+.article-card__meta::before {
+  content: "";
+  display: inline-block;
+  width: var(--status-dot-size);
+  margin-right: var(--space-3);
+  border-radius: var(--radius-circle);
+  background: var(--accent);
+  vertical-align: var(--status-dot-align);
+  transition:
+    background-color var(--motion-standard),
+    transform var(--motion-standard);
+  aspect-ratio: var(--ratio-square);
+}
+
+.article-card__title {
+  color: var(--fg);
+  transition: color var(--motion-standard);
+}
+
+.article-card__copy {
+  padding-top: var(--space-4);
+  color: var(--muted-secondary);
+  transition: color var(--motion-standard);
+}
+
+.article-card__arrow {
+  position: absolute;
+  right: var(--expanding-action-right);
+  bottom: var(--expanding-action-bottom);
+  width: var(--expanding-action-size);
+  /* Shared geometry contract: height: var(--expanding-action-size). */
+  background: var(--accent);
+  color: var(--surface);
+  aspect-ratio: var(--ratio-square);
+}
+
+.article-card:is(:hover, :focus-visible) {
+  color: var(--surface);
+  box-shadow: var(--shadow-action-hover);
+  transform: var(--transform-lift);
+}
+
+.article-card:is(:hover, :focus-visible)
+  :is(.article-card__meta, .article-card__title) {
+  color: var(--surface);
+}
+
+.article-card:is(:hover, :focus-visible) .article-card__copy {
+  color: var(--surface-78);
+}
+
+.article-card:is(:hover, :focus-visible) .article-card__meta::before {
+  background: var(--surface);
+  transform: var(--transform-dot-hover);
+}
+
+.article-card:focus-visible {
+  outline: var(--stroke-medium) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+@media (max-width: 56.25rem) {
+  .article-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .article-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .article-section {
+    grid-template-areas:
+      "intro"
+      "cards"
+      "action";
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .article-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .article-card,
+  .article-card:last-child {
+    grid-column: auto;
+    padding: var(--space-5);
+    border-radius: var(--radius-2xl);
+  }
+
+}
+
+@media (max-width: 43.75rem) {
+  main .article-section {
+    padding-block: var(--space-6);
+  }
+}

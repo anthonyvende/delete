@@ -1,0 +1,136 @@
+/*  Shared section and grid layouts  */
+
+.container {
+  width: min(var(--measure-page), calc(100% - var(--space-7)));
+  margin-inline: auto;
+}
+
+.site-shell--inner {
+  min-height: 100%;
+  overflow: clip;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Heading backdrop. The host element's box is the band's containing block, so
+   the band always ends below the heading rather than at a fixed height. It
+   over-reaches upward on purpose; the shell's `overflow: clip` trims it at the
+   top of the page so the band sits behind the header. */
+.page-band {
+  --page-band-gap: var(--space-7);
+  position: absolute;
+  z-index: var(--layer-behind);
+  top: calc((var(--space-10) + var(--space-6)) * -1);
+  right: var(--bleed-inline);
+  bottom: calc(var(--page-band-gap) * -1);
+  left: var(--bleed-inline);
+  background: var(--soft-blue);
+  pointer-events: none;
+}
+
+/* Specimens are previewed inline, so the page-wide backdrop is suppressed. */
+.catalog-specimen .page-band {
+  display: none;
+}
+
+/* Every section owns the shared vertical rhythm, so the wrappers around them
+   add none of their own — otherwise the first and last gap stacks up. */
+main {
+  padding-block: 0;
+}
+
+.page-section {
+  padding-block: var(--space-8);
+}
+
+.page-section--tight {
+  padding-block: var(--space-8);
+}
+
+.section-heading {
+  margin: 0 0 var(--space-7);
+  text-align: center;
+}
+
+.section-heading .teal,
+.teal {
+  color: var(--teal);
+}
+
+.card-grid {
+  display: grid;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.card-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card-grid > * {
+  min-width: 0;
+}
+
+.data-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: var(--space-1) var(--space-1) var(--space-4);
+  scrollbar-color: var(--accent) var(--soft-blue);
+}
+
+@media (max-width: 73.75rem) {
+  .site-shell--inner {
+    background-size: 100% var(--space-10), auto;
+  }
+
+  .card-grid--4,
+  .card-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-grid--4,
+  .card-grid--3 {
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 43.75rem) {
+  /* Only the two shared section primitives. Every other block tightens its own
+     rhythm in its own stylesheet — listing them here meant editing a layout
+     file to change a block, and a new block silently missing the rule. */
+  main :is(.page-section, .page-section--tight) {
+    padding-block: var(--space-6);
+  }
+
+  .site-shell--inner {
+    padding-top: var(--space-7);
+    background-size: 100% calc(var(--space-10) + var(--space-8)), auto;
+  }
+
+  .card-grid--4,
+  .card-grid--3,
+  .card-grid--2 {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-5);
+  }
+
+}
+
+/* Small print that qualifies a statement, e.g. a study-name definition. */
+.footnote {
+  color: var(--muted-secondary);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-card);
+}

@@ -1,0 +1,174 @@
+/* Shared semantic footer. */
+
+.site-footer {
+  width: min(var(--measure-page), calc(100% - var(--space-7)));
+  margin-inline: auto;
+  padding: var(--space-6) 0 var(--space-7);
+  border-top: var(--stroke-thin) solid var(--fg-30);
+  background: transparent;
+}
+
+.footer-inner {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.footer-brand {
+  flex: 0 0 auto;
+}
+
+.footer-brand img {
+  width: var(--brand-footer);
+  height: auto;
+}
+
+.footer-meta {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-6);
+  color: var(--muted);
+  font-size: var(--font-size-caption);
+}
+
+.footer-copyright {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-5);
+}
+
+.footer-links a {
+  position: relative;
+  white-space: nowrap;
+  transition: color var(--motion-quick);
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--space-1) * -1);
+  left: 0;
+  border-block-end: var(--stroke-medium) solid currentcolor;
+  border-radius: var(--radius-2xs);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-quick);
+}
+
+.footer-links a:is(:hover, :focus-visible) {
+  color: var(--accent);
+}
+
+.footer-links a:is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.footer-brand img {
+  transition: opacity var(--motion-quick);
+}
+
+.footer-brand:is(:hover, :focus-visible) img {
+  opacity: var(--opacity-hover);
+}
+
+@media (max-width: 73.75rem) {
+  .footer-inner {
+    align-items: flex-start;
+  }
+
+  .footer-meta {
+    display: grid;
+    justify-items: end;
+    gap: var(--space-4);
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .site-footer {
+    width: min(100% - var(--space-6), var(--measure-page));
+    padding-top: var(--space-5);
+    padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
+  }
+
+  /* Links sit above a closing row of brand (left) and copyright (right). The
+     meta wrapper dissolves so its children place on this grid directly. */
+  .footer-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-content: stretch;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .footer-meta {
+    display: contents;
+  }
+
+
+  .footer-brand {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+
+  .footer-copyright {
+    grid-area: 2 / 2 / 3 / 3;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .footer-brand img {
+    width: var(--brand-footer-mobile);
+  }
+
+  .footer-copyright {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-card);
+  }
+
+  /* Two links per row keeps the footer short while the rows stay tappable. */
+  .footer-links {
+    grid-area: 1 / 1 / 2 / -1;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--space-4);
+  }
+
+  .footer-links a {
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-3);
+    border-bottom: var(--stroke-thin) solid var(--fg-10);
+    color: var(--accent);
+    font-size: var(--font-size-body-compact);
+    white-space: normal;
+  }
+
+  .footer-links a:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  /* The underline wipe is a desktop affordance; rows read as a list here. */
+  .footer-links a::after {
+    display: none;
+  }
+}

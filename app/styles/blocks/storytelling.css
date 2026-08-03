@@ -1,0 +1,380 @@
+.feature-collection {
+  height: auto;
+  padding-block: var(--space-8);
+}
+
+.feature-collection__title,
+.timeline-section__title {
+  text-align: center;
+}
+
+.feature-collection__title span,
+.timeline-section__title span {
+  color: var(--teal);
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.feature-collection .feature-card {
+  --surface-radius: var(--radius-media);
+  --surface-shadow: var(--shadow-soft);
+  height: auto;
+  padding: var(--space-5) var(--space-5);
+}
+
+/* Centred, but keeping the shared gap below the icon. */
+.feature-collection .feature-card .feature-card__icon {
+  width: var(--space-7);
+  margin: 0 auto var(--space-5);
+  object-fit: contain;
+  aspect-ratio: var(--ratio-square);
+}
+
+.timeline-section {
+  padding-block: var(--space-8);
+}
+
+.timeline-canvas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.timeline-line {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--teal-bright) 0 38%,
+    var(--blue-mid) 38% 66%,
+    var(--blue-light) 66% 100%
+  );
+}
+
+.timeline-year {
+  position: static;
+  flex: 1;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+}
+
+.timeline-year--2025 {
+  color: var(--surface);
+}
+
+.timeline-year--2026,
+.timeline-year--2027 {
+  color: var(--muted);
+}
+
+.timeline-item {
+  position: relative;
+  z-index: var(--layer-raised);
+  display: grid;
+  min-width: 0;
+  place-content: center;
+  padding: var(--space-4) var(--space-4);
+  border: var(--stroke-medium) solid var(--accent);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--fg);
+  text-align: center;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-heading-relaxed);
+}
+
+.timeline-item strong,
+.timeline-item > span:not(.timeline-item__check) {
+  display: block;
+}
+
+.timeline-item__check {
+  position: absolute;
+  top: calc(var(--space-3) * -1);
+  left: calc(var(--space-2) * -1);
+  display: grid;
+  width: var(--control-size-md);
+  place-items: center;
+  border-radius: var(--radius-circle);
+  background: var(--teal-bright);
+  color: var(--surface);
+  font-size: var(--font-size-card-heading);
+  aspect-ratio: var(--ratio-square);
+}
+
+.timeline-item--slot-1,
+.timeline-item--slot-2,
+.timeline-item--slot-3,
+.timeline-item--slot-4,
+.timeline-item--slot-5 {
+  border: 0;
+  background: var(--accent);
+  color: var(--surface);
+}
+
+.timeline-item--slot-1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.timeline-item--slot-2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.timeline-item--slot-3 {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+
+.timeline-item--slot-4 {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.timeline-item--slot-5 {
+  grid-column: span 2;
+  grid-row: 4;
+}
+
+.timeline-item--slot-6 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.timeline-item--slot-7 {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+.next-feature-section {
+  width: min(100% - (var(--space-4) * 2), var(--measure-next-feature));
+  padding-block: var(--space-8);
+  margin-inline: auto;
+}
+
+.next-feature {
+  --next-feature-color: var(--muted);
+  --next-feature-title-color: var(--accent);
+  --surface-radius: var(--radius-media);
+  --surface-shadow: none;
+  display: grid;
+  grid-template-columns: minmax(0, 30%) minmax(0, 1fr) auto;
+  align-items: stretch;
+}
+
+.next-feature img {
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-media) 0 0 var(--radius-media);
+  transition:
+    filter var(--motion-standard),
+    transform var(--motion-image);
+}
+
+.next-feature__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+  padding-left: var(--space-6);
+  /* Keeps a long title off the cutout the arrow sits in, which overlaps the
+     copy column's trailing edge. */
+  padding-right: var(--space-6);
+  color: var(--next-feature-color);
+  font-size: var(--font-size-card-title-wide);
+  transition: color var(--motion-standard);
+}
+
+.next-feature strong {
+  color: var(--next-feature-title-color);
+  font-size: var(--font-size-section-compact);
+  transition: color var(--motion-standard);
+}
+
+.next-feature__arrow {
+  width: var(--expanding-action-size);
+  margin: var(--space-4);
+  aspect-ratio: var(--ratio-square);
+  align-self: center;
+}
+
+.next-feature__arrow svg {
+  width: 34%;
+  height: 34%;
+  transition: transform var(--motion-standard);
+}
+
+.next-feature:is(:hover, :focus-visible) {
+  --next-feature-color: var(--surface);
+  --next-feature-title-color: var(--surface);
+  --heading-color: var(--surface);
+}
+
+.next-feature:is(:hover, :focus-visible) img {
+  filter: var(--filter-saturated);
+  transform: scale(1.04);
+}
+
+.next-feature:focus-visible {
+  outline: var(--stroke-medium) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+@media (min-width: 73.8125rem) and (max-width: 119.9375rem) {
+
+  .value-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .feature-collection .feature-card {
+    width: auto;
+  }
+
+}
+
+@media (max-width: 73.75rem) {
+
+  .feature-collection,
+  .timeline-section,
+  .next-feature-section {
+    height: auto;
+    margin-top: var(--space-8);
+  }
+
+  .value-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-collection .feature-card {
+    height: auto;
+  }
+
+  .timeline-canvas {
+    display: grid;
+    height: auto;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-item {
+    position: relative;
+    inset: auto;
+    width: auto;
+  }
+
+  .timeline-slot {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .timeline-item::after {
+    display: none;
+  }
+}
+
+@media (max-width: 43.75rem) {
+
+
+
+  .value-grid,
+  .timeline-canvas {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  .next-feature-section {
+    padding-inline: 0;
+  }
+
+  .next-feature {
+    aspect-ratio: auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .next-feature img {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    aspect-ratio: var(--ratio-wide);
+    border-radius: var(--radius-media) var(--radius-media) 0 0;
+    object-position: center 42%;
+  }
+
+  .next-feature__copy {
+    grid-column: 1;
+    grid-row: 2;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    font-size: var(--font-size-small);
+  }
+
+  .next-feature strong {
+    font-size: var(--font-size-card-title);
+  }
+
+  .next-feature__arrow {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* Section variant of the feature collection. Moved here from the shared layout
+   sheet so the block owns every rule that describes it. */
+.feature-collection--section {
+  padding-block: var(--space-8);
+}
+
+.feature-collection--section .feature-collection__title {
+  text-align: center;
+}
+
+/* Keeps the block's own title-to-grid spacing: only the column count and gap
+   differ from the showcase variant. */
+.feature-collection--section .value-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 73.75rem) {
+  .feature-collection--section .value-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .feature-collection--section .value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* These blocks' own share of the shared small-screen rhythm. */
+  main :is(
+    .feature-collection,
+    .feature-collection--section,
+    .timeline-section,
+    .next-feature-section
+  ) {
+    padding-block: var(--space-6);
+  }
+}

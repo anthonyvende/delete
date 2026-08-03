@@ -1,0 +1,63 @@
+/*  Legal document — long-form policy pages.  */
+
+/* The root also carries `container`, whose width would otherwise win now that
+   the shared layout sheet loads after this one. */
+.legal-document.container {
+  width: min(var(--measure-content), calc(100% - var(--space-7)));
+}
+
+.legal-document {
+  padding-block: var(--space-8);
+}
+
+/* The body's own top padding clears the band's smaller overhang. */
+.legal-document__header .page-band {
+  --page-band-gap: var(--space-4);
+}
+
+.legal-document__header {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: var(--space-7);
+  border-bottom: var(--stroke-thin) solid var(--fg-18);
+}
+
+.legal-document__effective-date {
+  color: var(--muted);
+}
+
+.legal-document__body {
+  padding-top: var(--space-7);
+  color: var(--copy);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-loose);
+}
+
+.legal-document__body ul {
+  padding-left: var(--space-4);
+}
+
+.legal-document__body li + li {
+  margin-top: var(--space-2);
+}
+
+.legal-document__body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: var(--underline-offset);
+}
+
+@media (max-width: 43.75rem) {
+  .legal-document.container {
+    width: min(100% - var(--space-6), var(--measure-content));
+  }
+
+  main .legal-document {
+    padding-block: var(--space-6);
+  }
+
+  .legal-document__body {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-relaxed);
+  }
+}
