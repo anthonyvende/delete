@@ -41,7 +41,6 @@ export function ComparisonTable({
       className="comparison page-section container"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <div className="data-scroll" tabIndex={0} aria-label={label}>
         <table className="comparison__table">

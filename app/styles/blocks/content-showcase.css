@@ -243,28 +243,28 @@
     transform: none;
   }
 
-  [data-reveal="shown"] :is(.image-text-band__copy, .image-text-band__media) {
+  [data-revealed] :is(.image-text-band__copy, .image-text-band__media) {
     transition:
       opacity var(--motion-deliberate),
       transform var(--motion-deliberate);
   }
 
-  [data-reveal="shown"] .image-text-band__media {
+  [data-revealed] .image-text-band__media {
     transition-delay: var(--duration-quick);
   }
 
-  [data-reveal="pending"] .image-text-band__copy {
+  [data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .image-text-band__copy {
     opacity: 0;
     transform: var(--transform-reveal-inline);
   }
 
-  [data-reveal="pending"] .image-text-band__media {
+  [data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .image-text-band__media {
     opacity: 0;
     transform: var(--transform-reveal-inline-end);
   }
 
   /* Media-first layouts mirror the direction. */
-  [data-reveal="pending"]:is(
+  [data-reveal-ready] [data-reveal="pending"]:not([data-revealed]):is(
       .image-text-band--media-copy,
       .image-text-band--media-note-copy
     )
@@ -272,7 +272,7 @@
     transform: var(--transform-reveal-inline-end);
   }
 
-  [data-reveal="pending"]:is(
+  [data-reveal-ready] [data-reveal="pending"]:not([data-revealed]):is(
       .image-text-band--media-copy,
       .image-text-band--media-note-copy
     )
@@ -473,11 +473,11 @@
   }
 
   /* The careers banner settles in rather than rising. */
-  [data-reveal="pending"].careers-band {
+  [data-reveal-ready] [data-reveal="pending"]:not([data-revealed]).careers-band {
     transform: var(--transform-reveal-scale);
   }
 
-  [data-reveal="shown"].careers-band {
+  [data-revealed].careers-band {
     transition:
       opacity var(--motion-deliberate),
       transform var(--motion-deliberate);

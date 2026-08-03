@@ -14,7 +14,6 @@ export function StudyLinkGrid({ items }: { items: StudyLink[] }) {
       className="study-links"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       {items.map((item) => (
         <a

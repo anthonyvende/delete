@@ -9,7 +9,6 @@ export function NextStepStack({ items }: { items: NextStep[] }) {
       data-block="next-step-stack"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
       className="next-steps next-step-stack container"
       aria-label="Continue exploring"
     >

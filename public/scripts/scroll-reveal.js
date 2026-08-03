@@ -1,13 +1,16 @@
 (() => {
   // Blocks opt in by rendering `data-reveal-target data-reveal="pending"` on
-  // their own root. The hidden state ships in the markup rather than being
-  // applied here, for two reasons: a section is hidden from the very first
-  // paint instead of from the first scroll — a section reached immediately
-  // would otherwise still be settling into the hidden state when it is asked
-  // to reveal, and barely move — and the server and client agree on the
-  // attribute, so nothing hydrating over the markup sees a mismatch.
+  // their own root. The hidden state ships in the markup so a section is hidden
+  // from the first paint rather than from the first scroll — one reached
+  // immediately would otherwise still be settling into hidden when asked to
+  // reveal, and barely move.
   //
-  // Without JavaScript the pending state is neutralised by a <noscript> rule.
+  // Nothing is hidden until this line runs, because the CSS only applies the
+  // pending state under `[data-reveal-ready]`. If this file is missing, blocked,
+  // or fails, every section simply renders visible instead of the page going
+  // blank. Never hide a section on the markup alone.
+  document.documentElement.setAttribute("data-reveal-ready", "");
+
   const SELECTOR = '[data-reveal-target][data-reveal="pending"]';
 
   // A section reveals once its top rises past this fraction of the viewport.
@@ -21,7 +24,7 @@
 
   const showAll = () => {
     targets.forEach((target) => {
-      target.dataset.reveal = "shown";
+      target.setAttribute("data-revealed", "");
     });
   };
 
@@ -47,7 +50,7 @@
 
     pending = pending.filter((target) => {
       if (target.getBoundingClientRect().top >= line && !atPageEnd) return true;
-      target.dataset.reveal = "shown";
+      target.setAttribute("data-revealed", "");
       return false;
     });
 

@@ -34,7 +34,6 @@ export function MediaBanner({
       className="media-banner page-section container"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
       data-media-banner={interactive ? "true" : undefined}
     >
       {title ? <h2 className="section-heading">{title}</h2> : null}

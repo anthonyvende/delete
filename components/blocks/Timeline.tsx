@@ -20,7 +20,6 @@ export function Timeline({ title, years, items }: TimelineProps) {
       className="timeline-section"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <div className="container">
         <h2 className="timeline-section__title">{title}</h2>

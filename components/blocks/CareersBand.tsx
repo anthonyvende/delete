@@ -25,7 +25,6 @@ export function CareersBand({
       id={id}
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <MediaCutout
         className="careers-band__media"

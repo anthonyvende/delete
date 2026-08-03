@@ -21,7 +21,6 @@ export function FactFeature({
       className="fact-feature page-section container"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <div className="fact-feature__media">
         <img src={image} alt={imageAlt} />

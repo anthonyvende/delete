@@ -40,12 +40,13 @@ This directory is a local mirror of the ChatGPT project “SAB-BIO”.
 ### Scroll reveal
 
 - A block that animates into view renders both `data-reveal-target` and
-  `data-reveal="pending"` on its own root. The hidden state ships in the HTML;
-  `public/scripts/scroll-reveal.js` only ever flips it to `shown`.
-- Applying the hidden state from script instead leaves a section that is
-  scrolled to immediately still settling into hidden when it is asked to
-  reveal, so nothing visibly moves — and it makes the served HTML disagree with
-  anything hydrating over it.
+  `data-reveal="pending"` on its own root, and never changes them afterwards.
+- Nothing is actually hidden until `public/scripts/scroll-reveal.js` runs and
+  marks `<html data-reveal-ready>`. The CSS hides only under that marker, so a
+  missing, blocked, or failed script leaves every section visible instead of
+  blanking the page. Never key a hidden state off the markup alone.
+- The script reveals by adding `data-revealed`, an attribute no framework
+  renders, so a re-render cannot put a section back into hiding.
 - Transitions for the properties the hidden state sets belong under
   `[data-reveal="shown"]`, so hiding snaps and only the reveal animates. Where
   that rule outranks a base rule carrying hover transitions, repeat those in it;

@@ -64,7 +64,6 @@ export function PipelineTable({ phases, groups }: PipelineTableProps) {
       className="pipeline-overview"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <div className="container">
         <div

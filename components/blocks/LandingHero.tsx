@@ -30,6 +30,8 @@ export function LandingHero({
             className="hero__canvas"
             data-microcapsule
             aria-hidden="true"
+            /* The renderer sizes this element and stamps its own attributes
+               before hydration, so React never matches what it finds. */
             suppressHydrationWarning
           />
         ) : null}

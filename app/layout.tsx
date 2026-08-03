@@ -35,7 +35,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    // `public/scripts/scroll-reveal.js` marks this element before hydration,
+    // which is what keeps the hidden state from applying when the script is
+    // missing. React owns nothing here, so the mismatch is expected.
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Resolves the vendored Three.js build for the hero animation block. */}
         <script
@@ -47,14 +50,6 @@ export default function RootLayout({
                 "three/webgpu": "/vendor/three.module.js",
               },
             }),
-          }}
-        />
-        {/* Sections ship hidden so the reveal has something to animate from.
-            Without JavaScript nothing would ever reveal them, so drop the
-            hidden state entirely. */}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<style>[data-reveal="pending"], [data-reveal="pending"] * { opacity: 1 !important; transform: none !important; } [data-reveal="pending"] .pipeline-stage__bar { width: calc(var(--pipeline-progress) * 100% - var(--radius-sm)) !important; }</style>`,
           }}
         />
       </head>

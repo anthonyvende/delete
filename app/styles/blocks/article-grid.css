@@ -48,7 +48,7 @@
 
 /* Carries the hover transitions too: this rule outranks the base one, and the
    shorthand would otherwise drop them once the card is revealed. */
-[data-reveal="shown"] .article-card {
+[data-revealed] .article-card {
   transition:
     opacity var(--motion-deliberate),
     transform var(--motion-deliberate),
@@ -56,7 +56,7 @@
     box-shadow var(--motion-standard);
 }
 
-[data-reveal="pending"] .article-card {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .article-card {
   opacity: 0;
   transform: var(--transform-reveal-hidden);
 }

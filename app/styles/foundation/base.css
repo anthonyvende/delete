@@ -42,12 +42,12 @@ body {
     transform var(--motion-reveal);
 }
 
-[data-reveal="pending"] {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) {
   opacity: 0;
   transform: var(--transform-reveal-hidden);
 }
 
-[data-reveal="shown"] {
+[data-revealed] {
   opacity: 1;
   transform: var(--transform-reveal-shown);
 }

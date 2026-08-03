@@ -148,31 +148,31 @@
 
 /* The icons play once as the tile reveals, so the animation is seen without
    needing a hover — hover still replays it. */
-[data-reveal="shown"] .value-icon--antibody .value-icon__arm--left {
+[data-revealed] .value-icon--antibody .value-icon__arm--left {
   animation: value-icon-antibody-left var(--animation-icon-intro);
 }
 
-[data-reveal="shown"] .value-icon--antibody .value-icon__arm--right {
+[data-revealed] .value-icon--antibody .value-icon__arm--right {
   animation: value-icon-antibody-right var(--animation-icon-intro);
 }
 
-[data-reveal="shown"] .value-icon--antibody .value-icon__tip {
+[data-revealed] .value-icon--antibody .value-icon__tip {
   animation: value-icon-heartbeat var(--animation-icon-intro);
 }
 
-[data-reveal="shown"] .value-icon--shield-person .value-icon__outline {
+[data-revealed] .value-icon--shield-person .value-icon__outline {
   animation: value-icon-shield-draw var(--animation-icon-draw);
 }
 
-[data-reveal="shown"] .value-icon--shield-person .value-icon__figure {
+[data-revealed] .value-icon--shield-person .value-icon__figure {
   animation: value-icon-people-center var(--animation-icon-intro);
 }
 
-[data-reveal="shown"] .value-icon--vial .value-icon__vial {
+[data-revealed] .value-icon--vial .value-icon__vial {
   animation: value-icon-vial-tilt var(--animation-icon-intro);
 }
 
-[data-reveal="shown"] .value-icon--vial .value-icon__dose {
+[data-revealed] .value-icon--vial .value-icon__dose {
   animation: value-icon-heartbeat var(--animation-icon-intro);
 }
 
@@ -347,7 +347,7 @@
 
 /* Carries the hover transitions too: this rule outranks the base one, and the
    shorthand would otherwise drop them once the card is revealed. */
-[data-reveal="shown"] .next-step {
+[data-revealed] .next-step {
   transition:
     opacity var(--motion-deliberate),
     transform var(--motion-deliberate),
@@ -355,7 +355,7 @@
     color var(--motion-standard);
 }
 
-[data-reveal="pending"] .next-step {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .next-step {
   opacity: 0;
   transform: var(--transform-reveal-inline);
 }

@@ -21,7 +21,6 @@ export function NextFeature({
       className="next-feature-section"
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <a className="next-feature expanding-action surface-card" href={href}>
         <img src={image} alt={imageAlt} />

@@ -49,13 +49,13 @@
   transform: none;
 }
 
-[data-reveal="shown"] .person-card-shell {
+[data-revealed] .person-card-shell {
   transition:
     opacity var(--motion-deliberate),
     transform var(--motion-deliberate);
 }
 
-[data-reveal="pending"] .person-card-shell {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .person-card-shell {
   opacity: 0;
   transform: var(--transform-reveal-hidden);
 }

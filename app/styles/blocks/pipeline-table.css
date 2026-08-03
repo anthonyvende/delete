@@ -100,7 +100,7 @@
    Transitioning both ways lets a section that is only briefly pending — one
    scrolled to straight away — animate out and back, which reads as no
    animation at all. */
-[data-reveal="shown"] :is(
+[data-revealed] :is(
     .pipeline-group__title,
     .pipeline-row__label,
     .pipeline-row__status
@@ -110,21 +110,21 @@
     transform var(--motion-deliberate);
 }
 
-[data-reveal="shown"] .pipeline-stage__bar {
+[data-revealed] .pipeline-stage__bar {
   transition: width var(--motion-unhurried);
 }
 
-[data-reveal="pending"] .pipeline-group__title {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .pipeline-group__title {
   opacity: 0;
   transform: var(--transform-reveal-inline);
 }
 
-[data-reveal="pending"] :is(.pipeline-row__label, .pipeline-row__status) {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) :is(.pipeline-row__label, .pipeline-row__status) {
   opacity: 0;
   transform: var(--transform-reveal-hidden);
 }
 
-[data-reveal="pending"] .pipeline-stage__bar {
+[data-reveal-ready] [data-reveal="pending"]:not([data-revealed]) .pipeline-stage__bar {
   width: 0;
 }
 

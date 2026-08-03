@@ -32,7 +32,6 @@ export function ArticleGrid({
       id={id}
       data-reveal-target
       data-reveal="pending"
-      suppressHydrationWarning
     >
       <div className="section__intro">
         <div className="article-section__heading">

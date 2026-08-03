@@ -35,14 +35,11 @@ Two more framework-free behaviors ship the same way — load each with `defer`:
   `<dialog>`. Markup hooks: `[data-people-tab]`, `[data-people-panel]`,
   `[data-person-card]`.
 - `public/scripts/scroll-reveal.js` — reveals sections as they scroll into
-  view. Each block ships hidden by rendering both `data-reveal-target` and
-  `data-reveal="pending"` on its root; the script only ever flips that to
-  `data-reveal="shown"` once the section's top crosses 75% of the viewport.
-  The hidden state must stay in the served HTML — applying it from script
-  instead leaves a section that is scrolled to immediately still settling into
-  hidden when it is asked to reveal, so nothing visibly moves. Without the
-  script nothing would reveal at all, so the document `<head>` carries a
-  `<noscript>` rule that clears the pending state.
+  view. Blocks ship `data-reveal-target data-reveal="pending"` on their root,
+  but nothing is hidden until this script marks `<html data-reveal-ready>`, and
+  it reveals by adding `data-revealed`. If the file is not enqueued, or 404s
+  because the site lives under a sub-path, every section renders visible — the
+  page is never blank. Load it with `defer`.
 - `public/scripts/media-banner.js` — slider controls and swipe for
   `[data-media-banner]`, plus the static-prototype submit guard for
   `[data-static-form]`.
