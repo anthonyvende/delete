@@ -141,6 +141,8 @@ Audit date: 2026-07-31
 - ✅ `README.md` — current routes, commands, and handoff model.
 - ✅ `handoff/INTEGRATION.md` — full WordPress integration brief: load order,
   script contracts, field shapes, breakpoints, and known gaps.
+- ✅ `handoff/DESIGN-SYSTEM.md` — generated token/block/script reference.
+- ✅ `scripts/export-design-reference.mjs` — generates it from source on build.
 - ✅ `.gitignore` — generated dependencies, builds, caches, and browser logs.
 - ✅ `package.json` — minimal Next/React dependency set.
 - ✅ `package-lock.json` — locked dependency graph.

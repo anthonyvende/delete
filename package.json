@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/export-chrome-fragments.mjs",
-    "handoff": "node scripts/export-chrome-fragments.mjs"
+    "build": "next build && node scripts/export-chrome-fragments.mjs && node scripts/export-design-reference.mjs",
+    "handoff": "node scripts/export-chrome-fragments.mjs && node scripts/export-design-reference.mjs"
   },
   "dependencies": {
     "next": "16.2.12",

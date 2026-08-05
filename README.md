@@ -27,6 +27,10 @@ semantic markup, and `app/styles/` owns reusable foundation, block, section,
 header, and footer CSS. The mobile header behavior is framework-free in
 `public/scripts/site-header.js`.
 
+`npm run build` also regenerates `handoff/DESIGN-SYSTEM.md`, a full reference
+of every design token, breakpoint, block, and script hook read straight from
+the source, so it can never drift from the code.
+
 Every build regenerates the WordPress-ready fragments in `handoff/fragments/`
 from the same rendered components used by the preview: the header, the footer,
 and one file per block under `blocks/`. They are generated artifacts, never
