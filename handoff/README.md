@@ -1,5 +1,8 @@
 # WordPress handoff
 
+**Start with [INTEGRATION.md](INTEGRATION.md)** — the full brief for the team
+building the theme. This file is the quick reference.
+
 Next.js is only the visual preview renderer. The production handoff is the
 semantic HTML, reusable CSS, assets, and isolated vanilla JavaScript.
 
