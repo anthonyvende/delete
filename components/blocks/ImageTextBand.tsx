@@ -72,6 +72,7 @@ export function ImageTextBand({
       data-block="image-text-band"
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
       className={`image-text-band image-text-band--${layout}`}
       id={id}
     >

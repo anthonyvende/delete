@@ -1,7 +1,8 @@
+import type { ReactNode } from "react";
 import { IconTextCard } from "./IconTextCard";
 
 type ProcessCardProps = {
-  symbol: string;
+  symbol: ReactNode;
   title: string;
   copy: string;
 };

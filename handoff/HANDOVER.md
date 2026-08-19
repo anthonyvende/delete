@@ -9,7 +9,7 @@ hand — change the source and rebuild.
 
 | | |
 | --- | --- |
-| Blocks | 25, each exported as a standalone HTML fragment |
+| Blocks | 26, each exported as a standalone HTML fragment |
 | Stylesheets | 21 |
 | Design tokens | 251 |
 | Behaviour scripts | 5, framework-free |
@@ -51,7 +51,7 @@ handoff/
   fragments/
     header.html                site chrome
     footer.html                site chrome
-    blocks/<name>.html         25 files, one per block
+    blocks/<name>.html         26 files, one per block
     README.md                  generated block → stylesheet map
 
 app/styles/
@@ -85,7 +85,7 @@ same commit differently.
 Two catalogue pages are the fastest way in:
 
 - `/design-system/` — every token with live values
-- `/components/` — all 25 blocks rendered with real content
+- `/components/` — all 26 blocks rendered with real content
 
 ---
 
@@ -211,12 +211,13 @@ classes, and `data-*` hooks are the contract.
 | --- | --- | --- | --- |
 | `article-grid` | `.section` | `/` | `data-reveal` `data-reveal-target` |
 | `benefit-collection` | `.benefit-collection` | `/platform/manufacturing/` | `data-reveal` `data-reveal-target` |
-| `careers-band` | `.careers-band` | `/` | `data-reveal` `data-reveal-target` |
+| `careers-band` | `.careers-band` | `/about/` | `data-reveal` `data-reveal-target` |
 | `comparison-table` | `.comparison` | `/platform/how-sab-142-works/` | `data-label` `data-reveal` `data-reveal-target` |
 | `contact-section` | `.page-section` | `/contact/` | `data-reveal` `data-reveal-target` `data-static-form` |
 | `content-aside` | `.content-aside` | `/pipeline/` | `data-reveal` `data-reveal-target` |
 | `fact-feature` | `.fact-feature` | `/patients/about-sab-142/` | `data-reveal` `data-reveal-target` |
 | `feature-collection` | `.feature-collection` | `/about/` | `data-reveal` `data-reveal-target` |
+| `icon-callout` | `.icon-callout` | `/platform/how-sab-142-works/` | — |
 | `icon-text-collection` | `.page-section` | `/patients/about-sab-142/` | `data-reveal` `data-reveal-target` |
 | `image-text-band` | `.image-text-band` | `/` | `data-reveal` `data-reveal-target` |
 | `inner-hero` | `.inner-hero` | `/about/` | — |
@@ -224,7 +225,7 @@ classes, and `data-*` hooks are the contract.
 | `landing-hero` | `.hero` | `/` | `data-menu-open` `data-menu-panel` `data-menu-toggle` `data-microcapsule` `data-open` `data-site-header` |
 | `legal-page` | `.legal-document` | `/conflict-of-interest-policy/` | `data-reveal` `data-reveal-target` |
 | `media-banner` | `.media-banner` | `/patients/about-sab-142/` | `data-banner-frame` `data-banner-slide` `data-reveal` `data-reveal-target` |
-| `next-feature` | `.next-feature-section` | `/about/` | `data-reveal` `data-reveal-target` |
+| `next-feature` | `.next-feature-section` | `/components/` | `data-reveal` `data-reveal-target` |
 | `next-step-stack` | `.next-steps` | `/about/leadership/` | `data-reveal` `data-reveal-target` |
 | `notice-list` | `.notice-list` | `/careers/` | `data-reveal` `data-reveal-target` |
 | `people-directory` | `.people-directory` | `/about/leadership/` | `data-people-panel` `data-people-tab` `data-person-card` `data-person-close` `data-person-dialog` `data-person-open` `data-reveal` `data-reveal-target` |
@@ -603,8 +604,8 @@ no breakpoint at all.
 
 | Query | Rules |
 | --- | --- |
-| `(max-width: 43.75rem)` | 27 |
-| `(max-width: 73.75rem)` | 10 |
+| `(max-width: 43.75rem)` | 28 |
+| `(max-width: 73.75rem)` | 11 |
 | `(prefers-reduced-motion: reduce)` | 8 |
 | `(max-width: 50rem)` | 6 |
 | `(min-width: 73.8125rem) and (max-width: 119.9375rem)` | 2 |

@@ -600,6 +600,8 @@
 }
 
 .person-card__name {
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
   overflow-wrap: anywhere;
 }
 
@@ -642,23 +644,23 @@
   box-shadow: var(--shadow-card-hover);
 }
 
+/* The icon is centred over copy that stays left-aligned, as drawn. */
 .process-card .icon-text-card__icon {
   display: grid;
   width: var(--space-7);
   place-items: center;
-  margin: 0 auto var(--space-4);
-  border: var(--stroke-strong) solid var(--teal);
-  border-radius: var(--radius-circle);
-  color: var(--accent);
-  font-family: var(--font-body);
-  font-size: var(--font-size-card-heading-wide);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-solid);
+  margin: 0 auto var(--space-5);
   aspect-ratio: var(--ratio-square);
 }
 
-.process-card .icon-text-card__title {
-  text-align: center;
+.process-card .process-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* Two process cards keep the four-column width and sit in the middle pair. */
+.card-grid--pair > :first-child {
+  grid-column: 2;
 }
 
 .process-card__copy {
@@ -784,6 +786,13 @@
   width: var(--control-icon-size);
 }
 
+/* Below the four-column layout the grid is only two wide, so the pair fills it. */
+@media (max-width: 73.75rem) {
+  .card-grid--pair > :first-child {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 43.75rem) {
 
   .feature-card,
@@ -859,5 +868,92 @@
 @media (max-width: 43.75rem) {
   main .next-step-stack {
     padding-block: var(--space-6);
+  }
+}
+
+/* Board members list the committees they sit on beneath their biography. */
+.person-card__committees {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.person-card__committees a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: var(--underline-offset);
+}
+
+/* The card floods accent on hover, so the links have to invert with it. */
+.person-card:is(:hover, :focus-within) .person-card__committees a {
+  color: var(--surface);
+}
+
+/* Advisory members carry a title and an institution rather than a photo and a
+   biography, so the card is inert: no image, no arrow, no dialog. */
+.person-card--plain {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+
+.person-card--plain .person-card__role {
+  margin: 0;
+}
+
+.person-card__institution {
+  margin: 0;
+  color: var(--muted-secondary);
+}
+
+.person-modal__committees {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+  padding-left: var(--space-4);
+  color: var(--muted);
+}
+
+.icon-callout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.icon-callout__icon {
+  display: grid;
+  height: 100%;
+  padding: var(--space-5) var(--space-6);
+  place-items: center;
+  background: var(--blue-light);
+}
+
+.icon-callout__icon .process-icon {
+  width: var(--space-7);
+  aspect-ratio: var(--ratio-square);
+}
+
+.icon-callout__copy {
+  padding: var(--space-5) var(--space-6);
+}
+
+.icon-callout__copy > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 43.75rem) {
+  .icon-callout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .icon-callout__icon {
+    padding: var(--space-4);
   }
 }

@@ -38,6 +38,7 @@ export function SplitContent({
       id={id}
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
       className={`split-content split-content--${variant}${reverse ? " split-content--reverse" : ""}`}
     >
       <div className="container split-content__grid">

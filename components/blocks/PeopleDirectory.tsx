@@ -67,6 +67,7 @@ export function PeopleDirectory({ panels }: { panels: PeoplePanel[] }) {
                 className="people-directory__group"
                 data-reveal-target
                 data-reveal="pending"
+                suppressHydrationWarning
                 key={group.id}
               >
                 <h2 className="section-heading">{group.label}</h2>

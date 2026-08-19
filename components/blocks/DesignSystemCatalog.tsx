@@ -31,6 +31,7 @@ import { NoticeList } from "./NoticeList";
 import { PeopleDirectory } from "./PeopleDirectory";
 import { PersonCard } from "./PersonCard";
 import { PipelineTable, type PipelineGroup } from "./PipelineTable";
+import { ProcessIcon } from "../icons/ProcessIcon";
 import { ProcessCard } from "./ProcessCard";
 import { ProcessCollection } from "./ProcessCollection";
 import { ResourceCollection } from "./ResourceCollection";
@@ -674,22 +675,22 @@ const iconTextItems = [
 
 const processItems = [
   {
-    symbol: "D",
+    symbol: <ProcessIcon name="magnifier" />,
     title: "Engineered Biology",
     copy: "A fully human antibody platform begins with engineered biology.",
   },
   {
-    symbol: "T",
+    symbol: <ProcessIcon name="target" />,
     title: "Targeted Immunization",
     copy: "Targeted immunization generates antibodies against disease.",
   },
   {
-    symbol: "Y",
+    symbol: <ProcessIcon name="antibody" />,
     title: "Antibody Production",
     copy: "The platform produces multispecific human antibodies.",
   },
   {
-    symbol: "P",
+    symbol: <ProcessIcon name="test-tube" />,
     title: "Plasma Collection",
     copy: "Antibodies are collected repeatedly without human donors.",
   },
@@ -735,19 +736,28 @@ const comparisonRows: ComparisonRow[] = [
 
 const timelineItems: TimelineItem[] = [
   {
-    position: "timeline-item--slot-1",
+    side: "above",
+    tier: 1,
+    column: 1,
+    span: 3,
     label: "Q2 2025:",
     copy: "SAFEGUARD Type B FDA meeting",
     complete: true,
   },
   {
-    position: "timeline-item--slot-3",
+    side: "below",
+    tier: 1,
+    column: 4,
+    span: 3,
     label: "Q4 2025:",
     copy: "First patient dosed in SAFEGUARD",
     complete: true,
   },
   {
-    position: "timeline-item--slot-6",
+    side: "above",
+    tier: 1,
+    column: 9,
+    span: 3,
     label: "Q4 2026:",
     copy: "Complete SAFEGUARD enrollment",
   },
@@ -1285,7 +1295,7 @@ export function DesignSystemCatalog({
                   </p>
                 </IconTextCard>
                 <ProcessCard
-                  symbol="Rx"
+                  symbol={<ProcessIcon name="vial" />}
                   title="Process card"
                   copy="Use within a repeatable scientific or manufacturing flow."
                 />
@@ -1572,7 +1582,8 @@ export function DesignSystemCatalog({
               <ProcessCollection
                 title={
                   <>
-                    <strong>Upstream:</strong> SAB&apos;s biosecure facility
+                    <strong>Upstream:</strong>
+                    {" SAB's biosecure facility"}
                   </>
                 }
                 items={processItems}

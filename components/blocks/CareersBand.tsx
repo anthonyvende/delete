@@ -8,6 +8,8 @@ type CareersBandProps = {
   title: string;
   href: string;
   actionLabel: string;
+  /* Which edge the heading sits against, over the media. */
+  align?: "start" | "end";
 };
 
 export function CareersBand({
@@ -17,6 +19,7 @@ export function CareersBand({
   title,
   href,
   actionLabel,
+  align = "end",
 }: CareersBandProps) {
   return (
     <section
@@ -25,6 +28,7 @@ export function CareersBand({
       id={id}
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
     >
       <MediaCutout
         className="careers-band__media"
@@ -33,7 +37,7 @@ export function CareersBand({
       >
         <ButtonLink href={href}>{actionLabel}</ButtonLink>
       </MediaCutout>
-      <div className="careers-band__copy">
+      <div className={`careers-band__copy careers-band__copy--${align}`}>
         <h2 className="careers-band__title">{title}</h2>
       </div>
     </section>

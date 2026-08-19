@@ -30,6 +30,7 @@ holds its page rhythm — copy both.
 | `content-aside` | `.content-aside` | `blocks/pipeline-table.css` |
 | `fact-feature` | `.fact-feature` | `blocks/clinical-content.css` |
 | `feature-collection` | `.feature-collection` | `blocks/storytelling.css` |
+| `icon-callout` | `.icon-callout` | `blocks/cards.css` |
 | `icon-text-collection` | `.page-section` | `blocks/cards.css`, `blocks/catalog.css`, `blocks/content-showcase.css`, `blocks/legal-document.css`, `sections/layouts.css` |
 | `image-text-band` | `.image-text-band` | `blocks/content-showcase.css` |
 | `inner-hero` | `.inner-hero` | `blocks/hero.css` |

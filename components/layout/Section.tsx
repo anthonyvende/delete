@@ -13,6 +13,7 @@ export function Section({
     <section
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
       {...props}
       className={`page-section${compact ? " page-section--tight" : ""} container ${className}`.trim()}
     />

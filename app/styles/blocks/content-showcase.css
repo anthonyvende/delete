@@ -513,6 +513,12 @@
     pointer-events: none;
   }
 
+  /* The heading can sit against either edge of the media, depending on where
+     the image itself is quiet enough to read against. */
+  .careers-band__copy--start {
+    justify-self: start;
+  }
+
   .careers-band__title {
     margin: 0;
     color: var(--fg);

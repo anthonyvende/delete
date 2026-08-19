@@ -10,6 +10,7 @@ export function NoticeList({ items }: { items: Notice[] }) {
       className="notice-list container"
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
     >
       {items.map((item) => (
         <article className="notice-list__item" key={item.title}>

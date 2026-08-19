@@ -1,21 +1,50 @@
 import { CircleArrow } from "../ui/CircleArrow";
 
-type PersonCardProps = {
+export type PersonCommittee = {
+  label: string;
+  href?: string;
+};
+
+export type PersonCardProps = {
   name: string;
   role: string;
   image?: string;
   bio?: string;
   bioFull?: string[];
+  /* Board members list the committees they sit on beneath their biography. */
+  committees?: PersonCommittee[];
+  /* Advisory members are credited with an institution instead of a biography. */
+  institution?: string;
 };
 
+/*
+ * Two shapes share one card. A person with a biography gets a photo, a hover
+ * arrow, and a dialog; an advisory member has neither photo nor biography, so
+ * the card carries only their title and institution and stays inert.
+ */
 export function PersonCard({
   name,
   role,
   image = "/assets/pages/leader-samuel.webp",
-  bio = "Helping lead SAB BIO's work to transform treatment for people living with autoimmune disease.",
+  bio,
   bioFull,
+  committees,
+  institution,
 }: PersonCardProps) {
-  const paragraphs = bioFull ?? [bio];
+  if (institution && !bio) {
+    return (
+      <article className="person-card person-card--plain surface-card">
+        <h3 className="person-card__name">{name}</h3>
+        <p className="person-card__role">{role}</p>
+        <p className="person-card__institution">{institution}</p>
+      </article>
+    );
+  }
+
+  const summary =
+    bio ??
+    "Helping lead SAB BIO's work to transform treatment for people living with autoimmune disease.";
+  const paragraphs = bioFull ?? [summary];
 
   return (
     <div className="person-card-shell" data-person-card>
@@ -28,7 +57,20 @@ export function PersonCard({
         <div className="person-card__body expanding-action">
           <h3 className="person-card__name">{name}</h3>
           <p className="person-card__role">{role}</p>
-          <p>{bio}</p>
+          <p>{summary}</p>
+          {committees?.length ? (
+            <ul className="person-card__committees">
+              {committees.map((committee) => (
+                <li key={committee.label}>
+                  {committee.href ? (
+                    <a href={committee.href}>{committee.label}</a>
+                  ) : (
+                    committee.label
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : null}
           <CircleArrow className="person-card__arrow expanding-action__control" />
         </div>
         <button
@@ -64,6 +106,13 @@ export function PersonCard({
             {paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            {committees?.length ? (
+              <ul className="person-modal__committees">
+                {committees.map((committee) => (
+                  <li key={committee.label}>{committee.label}</li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </div>
       </dialog>

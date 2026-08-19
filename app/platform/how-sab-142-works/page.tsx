@@ -3,11 +3,13 @@ import {
   ComparisonTable,
   type ComparisonRow,
 } from "../../../components/blocks/ComparisonTable";
+import { IconCallout } from "../../../components/blocks/IconCallout";
 import { InnerHero } from "../../../components/blocks/InnerHero";
 import { MediaBanner } from "../../../components/blocks/MediaBanner";
 import { NextStepStack } from "../../../components/blocks/NextStepStack";
 import { SplitContent } from "../../../components/blocks/SplitContent";
 import { InnerPageShell } from "../../../components/layout/InnerPageShell";
+import { ProcessIcon } from "../../../components/icons/ProcessIcon";
 
 export const metadata: Metadata = {
   title: "How SAB-142 Works",
@@ -34,14 +36,16 @@ export default function HowSab142WorksPage() {
     <InnerPageShell>
       <InnerHero
         eyebrow="How SAB-142 works"
-        title="How SAB-142 works"
+        title="The science behind SAB-142"
         image="/assets/pages/how-hero.webp"
         imageAlt="Two clinicians discussing a treatment plan in a laboratory"
         intro={
           <p className="lead">
             SAB-142 is an investigational fully human antibody therapy in
-            registrational Phase 2b trials, designed to rebalance the immune
-            system and modify the attack at the source.
+            registrational Phase 2b trials, designed to stop the overreactive
+            immune response and preserve beta cells that produce insulin with
+            the goal of slowing disease progression in autoimmune type 1
+            diabetes.
           </p>
         }
       />
@@ -60,18 +64,16 @@ export default function HowSab142WorksPage() {
             cells that mistakenly attack insulin-producing beta cells in the
             pancreas. In the U.S., approximately{" "}
             <strong>2 million patients</strong> have insulin-dependent,
-            symptomatic T1D and an estimated{" "}
-            <strong>64,000 newly diagnosed each year</strong>.
+            symptomatic T1D (Stage 3 and beyond), with roughly{" "}
+            <strong>64,000 newly diagnosed each year</strong>. For decades, the
+            standard of care has been insulin replacement. That approach does
+            not address the underlying immune attack, which means the
+            destruction of beta cells continues and the disease progresses.
           </p>
           <p>
-            For decades, the standard of care has been insulin replacement.
-            That approach sustains life, but it leaves the underlying immune
-            attack entirely unaddressed.
-          </p>
-          <p>
-            We are developing a disease-modifying therapy designed to go beyond
-            insulin by modulating the immune system to preserve
-            insulin-producing beta cells and change the course of T1D.
+            We are taking a new approach: developing a disease-modifying therapy
+            designed to go beyond insulin by modulating the immune system to
+            preserve insulin-producing beta cells and change the course of T1D.
           </p>
         </>
       </SplitContent>
@@ -79,7 +81,7 @@ export default function HowSab142WorksPage() {
       <MediaBanner
         title={
           <>
-            A <span className="teal">different</span> mechanism
+            <span className="teal">Validated</span> mechanism
           </>
         }
         slides={[
@@ -89,8 +91,8 @@ export default function HowSab142WorksPage() {
             content: (
               <p>
                 <strong className="teal">SAB-142</strong> is a multispecific,
-                fully human anti-thymocyte globulin targeting the autoreactive T
-                cells responsible for beta cell destruction.
+                fully human anti-thymocyte immunoglobulin (hATG) targeting
+                multiple immune cells involved in beta cell destruction.
               </p>
             ),
           },
@@ -131,13 +133,22 @@ export default function HowSab142WorksPage() {
             T1D is a chronic disease requiring long-term management. In Phase 1
             studies, SAB-142 was generally well tolerated and demonstrated a
             favorable safety profile, with no serum sickness and no observed
-            anti-drug antibodies.
+            anti-drug antibodies. As a fully human biologic, SAB-142 is designed
+            to overcome key limitations of non-human approaches and has the
+            potential to enable long-term, repeat dosing to help delay
+            progression of T1D.
           </p>
-          <p>
-            As a fully human biologic, SAB-142 is designed to overcome key
-            limitations of non-human approaches and can potentially enable
-            long-term repeat dosing to help delay progression of T1D.
-          </p>
+          <IconCallout icon={<ProcessIcon name="vial" />}>
+            <p>
+              In the clinical study, SAB-142 is administered as a{" "}
+              <strong className="teal">
+                2-day infusion course, repeated every 6 months
+              </strong>
+              . The potential for chronic redosing is a fundamental design
+              advantage. No currently approved disease-modifying therapy for T1D
+              offers it.
+            </p>
+          </IconCallout>
         </>
       </SplitContent>
 
@@ -149,17 +160,18 @@ export default function HowSab142WorksPage() {
       >
         <>
           <h2>
-            Built for the <span className="teal">broadest</span> patient
-            population
+            Built for the <span className="teal">broadest eligible</span>{" "}
+            patient population
           </h2>
           <p>
             While many T1D clinical studies focus on the first 100 days
-            following Stage 3 diagnosis, a meaningful number fall outside that
-            Phase 2b PRISE-ATG window.
-          </p>
-          <p>
-            SAB-142 is being studied in the Phase 2b PRISE-ATG study in people
-            100 days to 2 years post-diagnosis to evaluate disease modification
+            following Stage 3 diagnosis, a significant unmet need remains for
+            people beyond this window who still have residual beta cell
+            function. SAB-142 is being studied in the investigator-led Phase 3
+            PRISE-hATG study, enrolling pediatric and adult patients ages 5–40
+            who are 100 days to 2 years following a Stage 3 T1D diagnosis. The
+            study is assessing the safety, efficacy, and tolerability of
+            SAB-142, expanding the opportunity to evaluate disease modification
             beyond the earliest stages of T1D.
           </p>
         </>
@@ -195,9 +207,8 @@ export default function HowSab142WorksPage() {
             title: "Find out more about SAFEGUARD",
           },
           {
-            href: "/pipeline/",
-            title: "See the clinical data",
-            colorBlock: true,
+            href: "/#news-section",
+            title: "See recent publications",
           },
         ]}
       />

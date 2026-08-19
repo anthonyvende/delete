@@ -27,6 +27,7 @@ export function LegalPage({ title, effectiveDate, children }: LegalPageProps) {
           className="legal-document__body"
           data-reveal-target
           data-reveal="pending"
+          suppressHydrationWarning
         >
           {children}
         </div>

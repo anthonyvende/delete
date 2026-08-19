@@ -39,23 +39,31 @@
   padding-block: var(--space-8);
 }
 
+/* Roadmap: pills anchored above and below a three-year bar, each joined to it
+   by a connector that ends in a dot. The pill and its connector share one grid
+   cell that reaches the bar, so the line never needs a hardcoded length. */
 .timeline-canvas {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  /* The last row needs a floor. A tier two item spans into it, and a spanning
+     item is sized after its rows, so without one the row collapses and the
+     pill lands back on top of the tier one pills it should clear. */
+  grid-template-rows: auto auto auto auto minmax(var(--space-9), auto);
   align-items: stretch;
-  gap: var(--space-4);
   margin-top: var(--space-6);
 }
 
 .timeline-line {
   display: flex;
   grid-column: 1 / -1;
-  grid-row: 2;
+  grid-row: 3;
   align-items: center;
   justify-content: space-around;
   gap: var(--space-4);
+  margin: 0;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-pill);
+  list-style: none;
   background: linear-gradient(
     to right,
     var(--teal-bright) 0 38%,
@@ -65,7 +73,6 @@
 }
 
 .timeline-year {
-  position: static;
   flex: 1;
   text-align: center;
   font-weight: var(--font-weight-bold);
@@ -81,12 +88,52 @@
 }
 
 .timeline-item {
+  display: grid;
+  grid-column: var(--timeline-column) / span var(--timeline-span);
+  justify-items: stretch;
+}
+
+/* Every item occupies the whole band between the canvas edge and the bar, with
+   the pill pinned to the outer edge and the connector filling what is left.
+   Tier one is inset by one pill's worth so it sits nearer the bar than tier
+   two — spanning separate grid rows collapses them to the same line, because a
+   spanning item is sized after its rows. */
+.timeline-item--above {
+  grid-row: 1 / 3;
+  grid-template-rows: auto 1fr;
+}
+
+.timeline-item--above.timeline-item--tier-1 {
+  padding-top: var(--space-8);
+}
+
+/* Below the bar the tiers get their own rows: tier one sizes row four, and
+   tier two spans through it so its pill lands in row five, clear of them. */
+.timeline-item--below {
+  grid-template-rows: 1fr auto;
+}
+
+.timeline-item--below.timeline-item--tier-1 {
+  grid-row: 4 / 5;
+}
+
+.timeline-item--below.timeline-item--tier-2 {
+  grid-row: 4 / 6;
+}
+
+.timeline-item--below .timeline-item__pill {
+  grid-row: 2;
+}
+
+.timeline-item--below .timeline-item__connector {
+  grid-row: 1;
+}
+
+.timeline-item__pill {
   position: relative;
   z-index: var(--layer-raised);
   display: grid;
-  min-width: 0;
-  place-content: center;
-  padding: var(--space-4) var(--space-4);
+  padding: var(--space-4) var(--space-5);
   border: var(--stroke-medium) solid var(--accent);
   border-radius: var(--radius-pill);
   background: var(--surface);
@@ -96,9 +143,19 @@
   line-height: var(--line-height-heading-relaxed);
 }
 
-.timeline-item strong,
-.timeline-item > span:not(.timeline-item__check) {
+.timeline-item--complete .timeline-item__pill {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--surface);
+}
+
+.timeline-item__pill strong,
+.timeline-item__pill > span:not(.timeline-item__check) {
   display: block;
+}
+
+.timeline-item__pill strong {
+  font-style: italic;
 }
 
 .timeline-item__check {
@@ -115,49 +172,45 @@
   aspect-ratio: var(--ratio-square);
 }
 
-.timeline-item--slot-1,
-.timeline-item--slot-2,
-.timeline-item--slot-3,
-.timeline-item--slot-4,
-.timeline-item--slot-5 {
-  border: 0;
+/* The connector fills whatever height is left between pill and bar, so the
+   line lengthens with the tier instead of being measured. */
+.timeline-item__connector {
+  position: relative;
+  justify-self: center;
+  /* A minimum keeps a visible line under the tallest pill in a band, which
+     would otherwise reach the bar on its own and show no connector at all. */
+  min-height: var(--space-4);
+  width: var(--stroke-thin);
   background: var(--accent);
-  color: var(--surface);
 }
 
-.timeline-item--slot-1 {
-  grid-column: 1;
-  grid-row: 1;
+/* Future milestones are outlined, and their connector is dashed to match. */
+.timeline-item:not(.timeline-item--complete) .timeline-item__connector {
+  background: linear-gradient(
+    var(--accent) 0 50%,
+    transparent 50% 100%
+  );
+  background-size: var(--stroke-thin) var(--space-3);
 }
 
-.timeline-item--slot-2 {
-  grid-column: 2;
-  grid-row: 1;
+/* The dot sits where the connector meets the bar. */
+.timeline-item__connector::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: var(--space-2);
+  border-radius: var(--radius-circle);
+  background: var(--accent);
+  aspect-ratio: var(--ratio-square);
+  transform: translateX(-50%);
 }
 
-.timeline-item--slot-3 {
-  grid-column: 1 / span 2;
-  grid-row: 3;
+.timeline-item--above .timeline-item__connector::after {
+  bottom: 0;
 }
 
-.timeline-item--slot-4 {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.timeline-item--slot-5 {
-  grid-column: span 2;
-  grid-row: 4;
-}
-
-.timeline-item--slot-6 {
-  grid-column: 3;
-  grid-row: 3;
-}
-
-.timeline-item--slot-7 {
-  grid-column: 4;
-  grid-row: 3;
+.timeline-item--below .timeline-item__connector::after {
+  top: 0;
 }
 
 .next-feature-section {
@@ -265,31 +318,31 @@
     height: auto;
   }
 
+  /* Too narrow for a horizontal roadmap: the bar and its connectors go, and the
+     milestones become a plain two-column list in the order they happen. */
   .timeline-canvas {
     display: grid;
     height: auto;
     min-height: 0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
     gap: var(--space-4);
   }
 
-  .timeline-line {
+  .timeline-line,
+  .timeline-item__connector {
     display: none;
   }
 
-  .timeline-item {
-    position: relative;
-    inset: auto;
-    width: auto;
-  }
-
-  .timeline-slot {
+  .timeline-item,
+  .timeline-item--above,
+  .timeline-item--below,
+  .timeline-item--above.timeline-item--tier-1,
+  .timeline-item--below.timeline-item--tier-1,
+  .timeline-item--below.timeline-item--tier-2 {
     grid-column: auto;
     grid-row: auto;
-  }
-
-  .timeline-item::after {
-    display: none;
+    padding: 0;
   }
 }
 

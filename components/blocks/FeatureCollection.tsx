@@ -24,6 +24,7 @@ export function FeatureCollection({
       className={`feature-collection feature-collection--${variant}`}
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
     >
       <div className="container">
         <h2 className="feature-collection__title">{title}</h2>

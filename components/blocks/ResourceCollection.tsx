@@ -20,6 +20,7 @@ export function ResourceCollection({
       className="resource-collection page-section container"
       data-reveal-target
       data-reveal="pending"
+      suppressHydrationWarning
     >
       <h2 className="section-heading">{title}</h2>
       <div className="resource-collection__grid">

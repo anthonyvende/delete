@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
+import { CareersBand } from "../../components/blocks/CareersBand";
 import { FeatureCollection } from "../../components/blocks/FeatureCollection";
 import { InnerHero } from "../../components/blocks/InnerHero";
-import { NextFeature } from "../../components/blocks/NextFeature";
 import { SplitContent } from "../../components/blocks/SplitContent";
-import {
-  Timeline,
-  type TimelineItem,
-} from "../../components/blocks/Timeline";
+import { Timeline, type TimelineItem } from "../../components/blocks/Timeline";
 import { InnerPageShell } from "../../components/layout/InnerPageShell";
 import { Eyebrow } from "../../components/ui/Eyebrow";
 
@@ -39,46 +36,78 @@ const values = [
   },
 ];
 
+/* Positions read off the design: column/span place the pill along the twelve
+   column canvas, side and tier decide which row band it sits in. */
 const milestones: TimelineItem[] = [
   {
-    position: "timeline-item--slot-1",
+    side: "above",
+    tier: 1,
+    column: 1,
+    span: 3,
     label: "Q2 2025:",
     copy: "SAFEGUARD Type B FDA meeting",
     complete: true,
   },
   {
-    position: "timeline-item--slot-2",
+    side: "above",
+    tier: 2,
+    column: 2,
+    span: 3,
     label: "2H 2025:",
     copy: "Phase 2b SAFEGUARD Initiation",
     complete: true,
   },
   {
-    position: "timeline-item--slot-3",
-    label: "Q3 2025:",
-    copy: "MED-DATA at EASD Confirmed rATG efficacy, including HbA1c reduction and C-peptide preservation",
-    complete: true,
-  },
-  {
-    position: "timeline-item--slot-4",
+    side: "above",
+    tier: 1,
+    column: 4,
+    span: 3,
     label: "Q4 2025:",
     copy: "Dosed first patient in the SAFEGUARD trial",
     complete: true,
   },
   {
-    position: "timeline-item--slot-5",
-    label: "Q4 2025:",
-    copy: "SAB-142 Phase 1 redosing data demonstrated continued lack of lymphodepletion and immunogenicity on repeat dosing",
+    side: "above",
+    tier: 2,
+    column: 8,
+    span: 3,
+    label: "Q4 2026:",
+    copy: "Complete enrollment of the SAFEGUARD trial of SAB-142",
+  },
+  {
+    side: "above",
+    tier: 1,
+    column: 10,
+    span: 3,
+    label: "2H 2027:",
+    copy: "Phase 2b SAFEGUARD topline data",
+  },
+  {
+    side: "below",
+    tier: 1,
+    column: 2,
+    span: 3,
+    label: "Q3 2025:",
+    copy: "MELD Data at EASD Confirmed rATG efficacy, including HbA1c reduction and C-peptide preservation",
     complete: true,
   },
   {
-    position: "timeline-item--slot-6",
-    label: "Q4 2026:",
-    copy: "Complete enrollment of the SAFEGUARD trial of SAB-142 by end of 2026",
+    side: "below",
+    tier: 1,
+    column: 5,
+    span: 3,
+    label: "Q1 2026:",
+    copy: "SAB-142 Phase 1 T1D Cohort data demonstrated early signals of C-peptide preservation",
+    complete: true,
   },
   {
-    position: "timeline-item--slot-7",
-    label: "2H 2027:",
-    copy: "Phase 2b SAFEGUARD topline data",
+    side: "below",
+    tier: 2,
+    column: 4,
+    span: 3,
+    label: "Q4 2025:",
+    copy: "SAB-142 Phase 1 redosing data demonstrated continued lack of lymphodepletion and immunogenicity on repeat dosing",
+    complete: true,
   },
 ];
 
@@ -87,7 +116,7 @@ export default function AboutPage() {
     <InnerPageShell>
       <InnerHero
         eyebrow="Company Profile"
-        title="What drives us"
+        title="Who we are"
         image="/assets/about-profile.jpg"
         imageAlt="A mother helping her daughter with diabetes care"
         intro={
@@ -104,6 +133,15 @@ export default function AboutPage() {
               harnessing the human immune response without relying on human
               donors or convalescent plasma.
             </p>
+            <p>
+              Our lead candidate, SAB-142, targets autoimmune type 1 diabetes
+              (T1D) with a disease-modifying therapeutic approach that aims to
+              change the T1D treatment paradigm by delaying onset and
+              potentially preventing disease progression of Stage 3 T1D
+              patients. SAB-142 is currently being evaluated in newly diagnosed
+              Stage 3 T1D patients in a registrational Phase 2b clinical trial
+              called SAFEGUARD.
+            </p>
           </>
         }
       />
@@ -115,21 +153,18 @@ export default function AboutPage() {
         mediaFirst
       >
         <h2>
-          The <span>vision</span>, <span>mission</span>, and{" "}
-          <span>values</span> behind our pursuit of disease modification in type
-          1 diabetes.
+          The <span>vision</span>, <span>mission</span>, and <span>values</span>{" "}
+          behind our pursuit of disease modification in type 1 diabetes.
         </h2>
         <p className="split-content__lead">
-          SAB BIO was founded on a belief that autoimmune disease modification
-          should not be the exception—it should be the standard of care. That
-          vision shapes every program we run, every partnership we pursue, and
-          every decision we make.
+          SAB BIO was founded with the vision to transform outcomes for people
+          with autoimmune disease through disease modification.
         </p>
         <p>
-          Our mission is to make it real. We are developing a medicine to change
-          the course of type 1 diabetes, not manage its symptoms, but intervene
-          at the source and dramatically redefine what a diagnosis means for the
-          millions of patients and families it touches each year.
+          Our mission is to make it real. We are developing a medicine to
+          dramatically redefine what it means to be diagnosed with type 1
+          diabetes by developing a medicine to change the course of disease. Not
+          just symptoms.
         </p>
       </SplitContent>
 
@@ -142,6 +177,16 @@ export default function AboutPage() {
         items={values}
       />
 
+      <CareersBand
+        id="meet-the-team"
+        image="/assets/pages/leadership-hero.webp"
+        imageAlt="Clinicians reviewing data together on a tablet"
+        title="Meet our team"
+        href="/about/leadership/"
+        actionLabel="Explore"
+        align="start"
+      />
+
       <Timeline
         title={
           <>
@@ -150,13 +195,6 @@ export default function AboutPage() {
         }
         years={["2025", "2026", "2027"]}
         items={milestones}
-      />
-
-      <NextFeature
-        href="/about/leadership/"
-        image="/assets/about-team.jpg"
-        imageAlt="Scientists working together in a laboratory"
-        title="Meet our team"
       />
     </InnerPageShell>
   );
